@@ -7,3 +7,22 @@ dist/
 !.env.example
 playwright-report/
 test-results/
+
+# SQLite databases and backups
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+
+# Temporary Prisma migration testing
+prisma/migration-test/
+prisma/schema-before-isactive.prisma
+prisma/schema-migration-test.prisma
+prisma/expected-schema.sql
+
+# Temporary development scripts
+check-db.cjs
+repair-migration.cjs
+

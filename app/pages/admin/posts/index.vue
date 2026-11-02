@@ -14,10 +14,22 @@ async function load() {
   finally { loading.value = false }
 }
 
+
 async function logout() {
-  await api("api/auth/logout", { method: "POST" })
-  await navigateTo("/admin/login")
+  try {
+    const result = await api<{ logoutUrl: string }>(
+      "api/auth/keycloak/logout",
+      { method: "POST" }
+    )
+
+    // Full browser navigation to Keycloak's logout endpoint.
+    window.location.assign(result.logoutUrl)
+  } catch (err: any) {
+    error.value =
+      err?.data?.statusMessage || "Could not complete logout"
+  }
 }
+
 
 async function remove(post: AdminPost) {
   if (!confirm(`Delete “${post.title}”? This cannot be undone.`)) return

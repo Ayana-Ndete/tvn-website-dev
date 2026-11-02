@@ -1,6 +1,10 @@
 import tailwindcss from "@tailwindcss/vite";
 
-const baseURL = import.meta.env.NUXT_APP_BASE_URL || "/website/";
+const baseURL = (
+  process.env.NUXT_APP_BASE_URL ||
+  process.env.CONTEXT_PATH ||
+  "/website/"
+).replace(/\/?$/, "/");
 
 export default defineNuxtConfig({
   compatibilityDate: "2026-10-04",
@@ -18,6 +22,12 @@ export default defineNuxtConfig({
     "~~/src/code-centre.css",
     "~~/src/index.css",
   ],
+    runtimeConfig: {
+    keycloakIssuer: "",
+    keycloakClientId: "",
+    keycloakClientSecret: "",
+    keycloakAdminRole: "dashboard-admin",
+  },
   app: {
     rootId: "root",
     head: {
@@ -37,7 +47,7 @@ export default defineNuxtConfig({
         },
       ],
     },
-    baseURL: import.meta.env.CONTEXT_PATH || "/website",
+    baseURL,
   },
   vite: { plugins: [tailwindcss()] },
   nitro: {
