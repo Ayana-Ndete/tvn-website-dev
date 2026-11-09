@@ -171,6 +171,8 @@ export default defineComponent({
       <>
         {(props.visionLayout
           ? [
+              { label: "Home", to: "/#hero", section: "hero" },
+
               { label: "Services", to: "/#services", section: "services" },
 
               { label: "AI & Agents", to: "/#ai", section: "ai" },
@@ -203,8 +205,8 @@ export default defineComponent({
           </NuxtLink>
         ))}
         {!mobile && <span class="nav-divider" aria-hidden="true" />}
-        <NuxtLink to="/#contact" class="nav-contact" onClick={close}>
-          {props.visionLayout ? "Book a consultation" : "Let’s talk"} <Arrow />
+        <NuxtLink to="/contact" class="nav-contact" onClick={close}>
+          Let’s talk <Arrow />
         </NuxtLink>
       </>
     )

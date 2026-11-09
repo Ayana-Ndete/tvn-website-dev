@@ -213,8 +213,12 @@ export function usePageMotion(root: Ref<HTMLDivElement | null>) {
           })
 
         if (element.querySelector(".partner-track")) {
+          const partners = element.querySelector<HTMLElement>("#partners")
+
+          if (!partners) return
+
           const partnerScroll = onScroll({
-            target: element.querySelector<HTMLElement>("#at-a-glance, #about")!,
+            target: partners,
 
             enter: "bottom top",
 
@@ -226,7 +230,7 @@ export function usePageMotion(root: Ref<HTMLDivElement | null>) {
           observers.push(partnerScroll)
 
           animate(".partner-track", {
-            translateX: ["-50%", "0%"],
+            translateX: ["0%", "-50%"],
 
             ease: "linear",
 

@@ -33,7 +33,7 @@ export default defineComponent({
         onClose={() => props.onDismiss()}
         onClick={(event) => {
           if (event.target !== event.currentTarget) return
-          const box = event.currentTarget.getBoundingClientRect()
+          const box = (event.currentTarget as HTMLDialogElement).getBoundingClientRect()
           if (
             event.clientX < box.left ||
             event.clientX > box.right ||

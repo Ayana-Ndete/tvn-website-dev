@@ -23,7 +23,7 @@ export interface HomeProject {
   value?: string
   year?: string
   category?: string
-  images: { src: string alt: string }[]
+  images: { src: string; alt: string }[]
 }
 
 export const homeProjects: HomeProject[] = [

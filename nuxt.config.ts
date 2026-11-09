@@ -20,6 +20,7 @@ export default defineNuxtConfig({
     "~~/src/about.css",
     "~~/src/history.css",
     "~~/src/code-centre.css",
+    "~~/src/contact.css",
     "~~/src/index.css",
   ],
     runtimeConfig: {
@@ -60,6 +61,8 @@ export default defineNuxtConfig({
         "/portfolio",
         "/products",
         "/code-centre",
+        "/contact",
+        "/thank-you",
       ],
     },
   },

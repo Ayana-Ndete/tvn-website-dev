@@ -8,22 +8,22 @@
 .site-nav.site-nav-light .nav-toggle { color: #0b1f3a; border-color: #b7c8d733; background: #0b1f3a05; }
 .site-nav.site-nav-light .nav-contact { background: #1b63e80f; border-color: #1b63e85c; color: #1b63e8; }
 .site-nav.site-nav-light .nav-contact:hover, .site-nav.site-nav-light .nav-contact[aria-current="location"] { background: #1B63E8; color: #fff; border-color: #1B63E8; }
-.nav-inner { max-width: 1240px; margin: auto; padding: 0 24px; height: 88px; display: flex; align-items: center; justify-content: space-between; gap: 24px; transition: height .25s; }
-.nav-brand { display: inline-flex; align-items: center; gap: 12px; flex-shrink: 0; text-align: left; }
-.nav-logo { display: grid; place-items: center; width: 44px; height: 44px; background: #fff; border-radius: 8px; box-shadow: 0 0 0 1px #ffffff20; }
-.nav-wordmark { display: grid; gap: 3px; color: #eff5f8; font-weight: 600; font-size: 16px; letter-spacing: -.025em; line-height: 1.2; }
-.nav-wordmark > span { color: #9cb0be; font-size: 10px; letter-spacing: .23em; text-transform: uppercase; font-weight: 500; }
+.nav-inner { max-width: 1136px; margin: auto; padding: 0 18px; height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 18px; transition: height .25s; }
+.nav-brand { display: inline-flex; align-items: center; gap: 9px; flex-shrink: 0; text-align: left; }
+.nav-logo { display: grid; place-items: center; width: 36px; height: 36px; background: #fff; border-radius: 6px; box-shadow: 0 0 0 1px #ffffff20; }
+.nav-wordmark { display: grid; gap: 2px; color: #eff5f8; font-weight: 600; font-size: 14px; letter-spacing: -.025em; line-height: 1.15; }
+.nav-wordmark > span { color: #9cb0be; font-size: 8px; letter-spacing: .22em; text-transform: uppercase; font-weight: 500; }
 .nav-desktop { display: flex; align-items: center; gap: 6px; }
-.site-nav .nav-link { position: relative; padding: 14px 17px; background: transparent; color: #adbdc8; font-size: 13px; font-weight: 500; transition: color .2s; }
-.site-nav .nav-link::after { content: ''; position: absolute; bottom: 5px; left: 17px; right: 17px; height: 2px; background: #1B63E8; transform: scaleX(0); transform-origin: left; transition: transform .25s; }
+.site-nav .nav-link { position: relative; padding: 10px 14px; background: transparent; color: #adbdc8; font-size: 11px; font-weight: 500; transition: color .2s; }
+.site-nav .nav-link::after { content: ''; position: absolute; bottom: 2px; left: 14px; right: 14px; height: 1px; background: #1B63E8; transform: scaleX(0); transform-origin: left; transition: transform .25s; }
 .site-nav .nav-link:hover, .site-nav .nav-link[aria-current="location"] { color: #fff; }
 .site-nav .nav-link:hover::after, .site-nav .nav-link[aria-current="location"]::after { transform: scaleX(1); }
-.nav-divider { width: 1px; height: 22px; margin: 0 15px; background: #acc6d32b; }
-.site-nav .nav-contact { display: inline-flex; align-items: center; justify-content: center; gap: 19px; padding: 12px 19px; min-height: 44px; background: #1B63E812; border: 1px solid #1B63E870; border-radius: 5px; color: #9cc2fa; font-size: 13px; font-weight: 600; transition: background .2s, color .2s, border-color .2s; }
+.nav-divider { width: 1px; height: 18px; margin: 0 12px; background: #acc6d32b; }
+.site-nav .nav-contact { display: inline-flex; align-items: center; justify-content: center; gap: 15px; padding: 9px 16px; min-height: 38px; background: #1B63E812; border: 1px solid #1B63E870; border-radius: 4px; color: #9cc2fa; font-size: 11px; font-weight: 600; transition: background .2s, color .2s, border-color .2s; }
 .site-nav .nav-contact:hover, .site-nav .nav-contact[aria-current="location"] { background: #1B63E8; color: #fff; border-color: #1B63E8; }
-.site-nav-scrolled { inset: 10px 18px auto; background: #0b1d28f5; border: 1px solid #a9c3d12b; border-radius: 10px; box-shadow: 0 10px 32px #04111d29; }
+.site-nav-scrolled { inset: 8px 14px auto; background: #0b1d28f5; border: 1px solid #a9c3d12b; border-radius: 8px; box-shadow: 0 10px 32px #04111d29; }
 .site-nav-scrolled.site-nav-light { background: #fffffffa; border-color: #d4e0eb; box-shadow: 0 10px 32px #17304f16; }
-.site-nav-scrolled .nav-inner { height: 68px; }
+.site-nav-scrolled .nav-inner { height: 56px; }
 .nav-toggle { display: none; color: #e6eff4; width: 44px; height: 44px; align-items: center; justify-content: center; border: 1px solid #acc6d333; border-radius: 6px; background: #ffffff05; }
 .nav-mobile { display: none; }
 @media (max-width: 1023px) {

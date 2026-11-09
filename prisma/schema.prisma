@@ -103,6 +103,19 @@ model SiteSettings {
   updatedAt            DateTime @updatedAt
 }
 
+model ContactSubmission {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  service   String
+  project   String
+  status    String   @default("NEW")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status, createdAt])
+}
+
 // Generic, database-backed content storage for future admin-managed copy.
 // Application source files are never edited through the admin UI.
 model SiteContent {
