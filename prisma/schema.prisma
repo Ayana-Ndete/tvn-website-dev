@@ -8,13 +8,20 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
+
 model Admin {
-  id           Int       @id @default(autoincrement())
-  name         String
-  email        String    @unique
-  passwordHash String
-  createdAt    DateTime  @default(now())
-  sessions     Session[]
+  id              Int       @id @default(autoincrement())
+  name            String
+  email           String    @unique
+  passwordHash    String
+  keycloakIssuer  String?
+  keycloakSubject String?
+  isActive        Boolean   @default(true)
+  createdAt       DateTime  @default(now())
+  sessions        Session[]
+
+  @@unique([keycloakIssuer, keycloakSubject])
 }
 
 model Session {

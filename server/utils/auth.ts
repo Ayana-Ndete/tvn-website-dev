@@ -44,7 +44,18 @@ export async function getAdminFromSession(event: H3Event) {
     include: { admin: true },
   })
 
-  if (!session) return null
+  
+if (!session) return null;
+
+if (!session.admin.isActive) {
+  await db.session.deleteMany({
+    where: { adminId: session.adminId },
+  });
+
+  deleteCookie(event, COOKIE_NAME, { path: "/" });
+  return null;
+}
+
   if (session.expiresAt <= new Date()) {
     await db.session.delete({ where: { tokenHash } }).catch(() => undefined)
     deleteCookie(event, COOKIE_NAME, { path: "/" })

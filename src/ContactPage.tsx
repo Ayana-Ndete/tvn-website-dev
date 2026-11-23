@@ -54,7 +54,7 @@ export default defineComponent({
 
     return () => (
       <div class="contact-page">
-        <Navbar scrolled={scrolled.value} />
+        <Navbar scrolled={scrolled.value} homeIcons visionLayout />
         <main class="contact-main">
           <section class="contact-shell" aria-labelledby="contact-title">
             <div class="contact-intro">
