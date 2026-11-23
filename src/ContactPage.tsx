@@ -5,11 +5,11 @@ import Navbar from "./Navbar"
 import { useClientEffect } from "./useClientEffect"
 
 const services = [
-  "Website Development",
-  "Mobile App Development",
-  "Custom Software",
-  "UI/UX Design",
-  "Other",
+  "AI & Agentic Systems",
+  "Regulatory & Trade Systems",
+  "Software Development",
+  "Payments & System Integration",
+  "ICT Consulting",
 ]
 
 export default defineComponent({
@@ -20,6 +20,7 @@ export default defineComponent({
     const api = useApi()
     const submitting = shallowRef(false)
     const submitError = shallowRef("")
+    const serviceError = shallowRef("")
 
     useClientEffect(() => {
       document.title = "Contact Us — Technovation Ventures"
@@ -60,13 +61,14 @@ export default defineComponent({
               <p class="contact-eyebrow"><span /> Start a conversation</p>
               <h1 id="contact-title">Have a project<br />in mind?</h1>
               <p>
-                Tell us a little about your idea, and we'll get back to you to
-                discuss how we can bring it to life.
+                Tell us about the process technology, or AI, could transform.
+                We’ll get back to you within one business day with a free
+                initial assessment.
               </p>
               <div class="contact-aside" aria-label="Contact details">
-                <a href="mailto:info@technovation.co.ke">info@technovation.co.ke</a>
+                <a href="mailto:info@technovation.ke">info@technovation.ke</a>
                 <a href="tel:+254202392555">+254 20 239 2555</a>
-                <span>Allamano Centre · Nairobi, Kenya</span>
+                <span>Allamano Centre (Consolata Shrine), Westlands, Nairobi</span>
               </div>
             </div>
 
@@ -81,10 +83,13 @@ export default defineComponent({
               </div>
               <div class="contact-field">
                 <label for="service">What do you need help with?</label>
-                <select id="service" name="service" required>
+                <select id="service" name="service" required aria-describedby={serviceError.value ? "service-error" : undefined}
+                  onChange={(event) => { if ((event.target as HTMLSelectElement).value) serviceError.value = "" }}
+                  onInvalid={(event) => { if (!(event.target as HTMLSelectElement).value) serviceError.value = "Please select a service." }}>
                   <option value="" disabled selected>Select a service</option>
                   {services.map((service) => <option key={service} value={service}>{service}</option>)}
                 </select>
+                {serviceError.value && <p id="service-error" class="contact-field-error" role="alert">{serviceError.value}</p>}
               </div>
               <div class="contact-field">
                 <label for="project">Tell us about your project</label>

@@ -42,6 +42,7 @@ export default defineNuxtConfig({
         "/",
         "/about",
         "/history",
+        "/services",
         "/projects",
         "/portfolio",
         "/products",

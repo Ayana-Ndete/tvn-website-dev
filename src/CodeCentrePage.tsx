@@ -474,22 +474,6 @@ export default defineComponent(
                     </a>
                   </div>
                 </div>
-                <div class="cc-container cc-glass-bottom">
-                  <span>
-                    THE ENGINEERING NOTEBOOK <i /> JAVA + DEVOPS
-                  </span>
-                  <button
-                    onClick={() => (ambientPaused.value = !ambientPaused.value)}
-                    aria-pressed={ambientPaused.value}
-                  >
-                    {ambientPaused.value
-                      ? "Resume animation"
-                      : "Pause animation"}{" "}
-                    <span aria-hidden="true">
-                      {ambientPaused.value ? "▷" : "Ⅱ"}
-                    </span>
-                  </button>
-                </div>
               </section>
               <GlassTransition variant="blue" />
               <section id="cc-notebook" class="cc-container cc-library">
@@ -631,7 +615,7 @@ export default defineComponent(
           <nav aria-label="Footer navigation">
             <NuxtLink to="/">Home</NuxtLink>
             <NuxtLink to="/about">Our team</NuxtLink>
-            <NuxtLink to="/#services">Our services</NuxtLink>
+            <NuxtLink to="/services">Our services</NuxtLink>
           </nav>
 
           <span>© 2026 Technovation Ventures</span>
@@ -644,4 +628,3 @@ export default defineComponent(
     props: [],
   },
 )
-                

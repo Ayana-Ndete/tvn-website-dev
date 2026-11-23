@@ -1,4 +1,4 @@
-.site-nav { position: fixed; z-index: 50; inset: 0 0 auto; background: #081822e8; border-bottom: 1px solid #aac6d21a; backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); transition: background .25s, box-shadow .25s, inset .25s, border-radius .25s; }
+.site-nav { position: fixed; z-index: 100; inset: 0 0 auto; background: #081822e8; border-bottom: 1px solid #aac6d21a; backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); transition: background .25s, box-shadow .25s, inset .25s, border-radius .25s; }
 .site-nav-light { background: #ffffffed; border-bottom-color: #dce6ef; }
 .site-nav.site-nav-light .nav-wordmark { color: #0b1f3a; }
 .site-nav.site-nav-light .nav-wordmark > span { color: #6b7e93; }
@@ -31,11 +31,16 @@
   .nav-desktop { display: none; }
   .nav-toggle { display: inline-flex; }
   .site-nav-scrolled { inset: 8px 10px auto; }
-  .site-nav-open { background: #0b1d28; }
-  .site-nav-light.site-nav-open { background: #fff; }
-  .site-nav-light .nav-mobile { background: #fff; }
-  .site-nav.site-nav-light .nav-mobile .nav-link { color: #33475c; border-bottom-color: #dce6ef; }
-  .nav-mobile { display: grid; gap: 4px; padding: 10px 24px 24px; border-top: 1px solid #acc6d31a; max-height: calc(100dvh - 100px); overflow-y: auto; }
+  /* A single opaque drawer keeps navigation legible over every page surface. */
+  .site-nav-open, .site-nav-light.site-nav-open { background: #061a3d; border-color: rgba(157, 198, 255, .2); }
+  .site-nav-open .nav-wordmark, .site-nav-light.site-nav-open .nav-wordmark { color: #fff; }
+  .site-nav-open .nav-wordmark > span, .site-nav-light.site-nav-open .nav-wordmark > span { color: #a9d0ff; }
+  .site-nav-open .nav-toggle, .site-nav-light.site-nav-open .nav-toggle { color: #fff; background: rgba(255,255,255,.08); border-color: rgba(173, 208, 255, .42); }
+  .nav-mobile { display: grid; gap: 4px; padding: 10px 24px 24px; background: #061a3d; border-top: 1px solid rgba(157, 198, 255, .18); max-height: calc(100dvh - 76px); overflow-y: auto; overscroll-behavior: contain; }
+  .site-nav.site-nav-light .nav-mobile { background: #061a3d; }
+  .site-nav.site-nav-light .nav-mobile .nav-link, .site-nav .nav-mobile .nav-link { color: #eaf4ff; border-bottom-color: rgba(157, 198, 255, .18); }
+  .site-nav .nav-mobile .nav-link:hover, .site-nav .nav-mobile .nav-link[aria-current="page"], .site-nav .nav-mobile .nav-link[aria-current="location"] { color: #8fc0ff; }
+  .site-nav .nav-mobile .nav-contact { background: #1B63E8; border-color: #5b9bff; color: #fff; }
   .nav-mobile .nav-link { display: flex; align-items: center; justify-content: space-between; text-align: left; padding: 16px 0; border-bottom: 1px solid #acc6d31a; }
   .nav-mobile .nav-link::after { left: 0; right: auto; width: 24px; bottom: 5px; }
   .nav-mobile .nav-contact { margin-top: 14px; }
@@ -55,4 +60,12 @@
   .site-nav .nav-link { padding-inline:11px; font-size:12px; }
   .nav-divider { margin-inline:8px; }
   .nav-desktop { gap:2px; }
+}
+
+/* Sit inside the opening scene, then resolve into the existing glass nav. */
+.site-nav-home:not(.site-nav-scrolled) {
+  background: linear-gradient(180deg, #061a3de8, #061a3d60 72%, transparent);
+  border-bottom-color: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }

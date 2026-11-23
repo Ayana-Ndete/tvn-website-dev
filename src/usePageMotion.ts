@@ -127,13 +127,15 @@ export function usePageMotion(root: Ref<HTMLDivElement | null>) {
             })
           })
         const partnerScroll = onScroll({
-          target: element.querySelector<HTMLElement>("#about")!,
+          target: element.querySelector<HTMLElement>("#partners")!,
           enter: "bottom top",
           leave: "top bottom",
           sync: true,
         })
         observers.push(partnerScroll)
         animate(".partner-track", {
+          // The second copy keeps the movement seamless while the user scrolls.
+          // Use transform only here: a CSS marquee would otherwise fight this animation.
           translateX: ["-50%", "0%"],
           ease: "linear",
           autoplay: partnerScroll,

@@ -18,7 +18,7 @@
 .hero-primary:hover { background: #3E7DFB; }
 .hero-secondary { color: #eef5ff; border: 1px solid #b9d8ff66; background: #0b2f6d80; }
 .hero-secondary:hover { background: #174b9a; border-color: #d4e7ff; }
-.hero-artwork { position: absolute; inset: 0; pointer-events: none; }
+.hero-artwork { position: absolute; inset: 0; pointer-events: none; perspective: 1300px; }
 .hero-object { position: absolute; }
 .network-object { width: min(64vw, 840px); right: -6%; top: 50%; margin-top: -350px; }
 .network-drawing { display: block; width: 100%; height: auto; }
@@ -78,12 +78,13 @@
   50%, 100% { stroke-dashoffset: 0; opacity: 0; }
 }
 @keyframes cube-separate {
-  0%, 43%, 92%, 100% { transform: translate(0, 0); }
-  57%, 70% { transform: translate(var(--face-x), var(--face-y)); }
+  /* The trails meet at 44%; faces release on that same frame and reset together. */
+  0%, 43%, 90%, 100% { transform: translate(0, 0); }
+  44%, 72% { transform: translate(var(--face-x), var(--face-y)); }
 }
 @keyframes cube-charge {
-  0%, 30%, 53%, 100% { opacity: 0; }
-  40%, 45% { opacity: 1; }
+  0%, 38%, 50%, 100% { opacity: 0; }
+  42%, 45% { opacity: 1; }
 }
 @keyframes cube-burst {
   0%, 42% { transform: scale(.5); opacity: 0; }
@@ -118,3 +119,106 @@
 .cube-mark-white { color: #0866ff; --mark-secondary: #064b80; }
 .cube-mark-dark { color: #438fff; --mark-secondary: #a4d1ff; }
 .cube-mark-secondary { stroke: var(--mark-secondary, currentColor); }
+
+/* Cinematic homepage composition: the existing Technovation cube stays whole
+   and becomes the focal object inside a quiet technical environment. */
+.hero-scene {
+  --hero-scroll-progress: 0;
+  min-height: max(820px, 100svh);
+  padding-top: 170px;
+  padding-bottom: 135px;
+  background: #061a3d;
+}
+.hero-scene::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+  opacity: .27;
+  background-image:
+    linear-gradient(115deg, transparent 0 57%, #78b5ff16 57.08%, transparent 57.16%),
+    linear-gradient(65deg, transparent 0 72%, #78b5ff12 72.08%, transparent 72.16%),
+    linear-gradient(#8cb8ff0c 1px, transparent 1px),
+    linear-gradient(90deg, #8cb8ff0c 1px, transparent 1px);
+  background-size: auto, auto, 76px 76px, 76px 76px;
+  mask-image: linear-gradient(90deg, transparent 10%, #000 47%, #000 90%);
+}
+.hero-scene::after { z-index: 2; opacity: .7; }
+.hero-wash {
+  background:
+    radial-gradient(ellipse at 73% 47%, #397dbf4a, transparent 34%),
+    radial-gradient(ellipse at 92% 13%, #215dbb36, transparent 42%),
+    linear-gradient(108deg, #061a3d 4%, #09254e 48%, #123b68 100%);
+}
+.hero-wash::after {
+  opacity: .19;
+  background-size: 18px 18px;
+  mask-image: radial-gradient(ellipse at 75% 48%, #000 0 24%, transparent 64%);
+}
+.hero-centre {
+  width: min(710px, 57%);
+  opacity: calc(1 - var(--hero-scroll-progress, 0));
+  transform: translate3d(0, var(--hero-copy-lift, 0px), 0);
+  transition: opacity .12s linear;
+}
+.hero-headline { margin-bottom: 26px; }
+.headline-primary { font-size: clamp(52px, 6.3vw, 90px); letter-spacing: -.075em; }
+.headline-secondary { font-size: clamp(34px, 3.8vw, 55px); }
+.hero-description { max-width: 470px; font-size: 16px; color: #d1e2f7; }
+.hero-actions .hero-button { min-height: 54px; padding-inline: 24px; }
+.network-object {
+  width: min(65vw, 900px);
+  right: -4%;
+  margin-top: -360px;
+  perspective: 1300px;
+  transform-style: preserve-3d;
+  scale: var(--hero-cube-scale, 1);
+  filter: drop-shadow(0 28px 46px #020d2780);
+}
+.network-object::before {
+  position: absolute;
+  z-index: -1;
+  inset: 24% 14% 18%;
+  border-radius: 50%;
+  background: #2777da30;
+  filter: blur(58px);
+  content: "";
+  transform: translateZ(-45px);
+}
+.network-drawing { overflow: visible; }
+.technovation-cube { filter: drop-shadow(0 12px 24px #02091480) drop-shadow(0 0 28px #438fff36); }
+.cube-face { animation: cube-separate 8s cubic-bezier(.22,.7,.3,1) infinite; }
+.cube-charge { animation: cube-charge 8s ease-in-out infinite; }
+.cube-burst-ring { animation: cube-burst 8s ease-out infinite; }
+.cube-connections path { animation-duration: 6s; opacity: .45; }
+.cube-edge-trail { animation: cube-edge-arrive 8s linear infinite; opacity: .65; }
+.hero-artwork.is-paused .cube-edge-trail,
+.hero-artwork.is-paused .cube-connections path { animation-play-state: paused; }
+.hero-artwork .network-object { translate: 0 0; animation: cube-hover 8s ease-in-out infinite; }
+.hero-artwork.is-paused .network-object { animation-play-state: paused; }
+@keyframes cube-hover { 0%,100% { translate: 0 0; } 50% { translate: 0 -10px; } }
+.hero-scroll-cue, .hero-motion-toggle { z-index: 3; }
+.hero-scroll-cue span { animation: cue-drift 1.8s ease-in-out infinite; }
+@keyframes cue-drift { 50% { translate: 0 4px; } }
+@media (max-width: 1050px) {
+  .hero-centre { width: 68%; }
+  .network-object { right: -18%; width: 76vw; opacity: .84; }
+}
+@media (max-width: 639px) {
+  .hero-scene { min-height: max(850px, 100svh); padding: 132px 24px 250px; }
+  .hero-centre { width: 100%; }
+  .headline-primary { font-size: clamp(43px, 11vw, 61px); }
+  .headline-secondary { font-size: clamp(28px, 7.2vw, 39px); }
+  .network-object { width: 500px; right: -125px; bottom: -125px; top: auto; margin: 0; opacity: .87; }
+  .network-object::before { inset: 25% 15% 15%; filter: blur(38px); }
+  .hero-description { max-width: 390px; }
+  .hero-motion-toggle { right: 10px; bottom: 15px; font-size: 10px; }
+  .hero-scroll-cue { bottom: 15px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-centre { opacity: 1; transform: none; }
+  .network-object { scale: 1; animation: none; }
+  .hero-scroll-cue span { animation: none; }
+  .cube-edge-trail { opacity: .25; }
+}

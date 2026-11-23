@@ -1,12 +1,12 @@
 import { createError, readBody } from "h3"
 import { db } from "../utils/db"
-
+// rate limiting - contact us page
 const services = new Set([
-  "Website Development",
-  "Mobile App Development",
-  "Custom Software",
-  "UI/UX Design",
-  "Other",
+  "AI & Agentic Systems",
+  "Regulatory & Trade Systems",
+  "Software Development",
+  "Payments & System Integration",
+  "ICT Consulting",
 ])
 
 function text(value: unknown) {

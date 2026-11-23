@@ -5,11 +5,9 @@ import logoImage from "./assets/images/brand/technovation-logo.png"
 
 const navLinks = [
   { label: "Home", to: "/", section: "hero" },
+  { label: "Services", to: "/services", section: "services" },
+  { label: "Our Work", to: "/projects", section: "work" },
   { label: "About", to: "/about", section: "about" },
-  { label: "Services", to: "/#services", section: "services" },
-  { label: "Projects", to: "/projects", section: "recent-work" },
-  { label: "Products", to: "/products", section: "products" },
-  { label: "Code Centre", to: "/code-centre", section: "code-centre" },
 ]
 const Arrow = () => (
   <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -124,19 +122,21 @@ export default defineComponent({
       ))}
       {!mobile && <span class="nav-divider" aria-hidden="true" />}
       <NuxtLink to="/contact" class="nav-contact" onClick={close}
-        aria-current={route.path === "/contact" ? "page" : undefined}>
+        aria-current={props.activeSection
+          ? (props.activeSection === "contact" ? "location" : undefined)
+          : (route.path === "/contact" ? "page" : undefined)}>
         Let’s talk <Arrow />
       </NuxtLink>
     </>
     return () => (
-      <header class={`site-nav site-nav-${props.tone} ${props.scrolled ? "site-nav-scrolled" : ""} ${open.value ? "site-nav-open" : ""}`}>
+      <header class={`site-nav site-nav-${props.tone} ${props.homeIcons ? "site-nav-home" : ""} ${props.scrolled ? "site-nav-scrolled" : ""} ${open.value ? "site-nav-open" : ""}`}>
         <div class="nav-inner">
           <NuxtLink to="/" class="nav-brand" aria-label="Technovation Ventures — home" onClick={close}>
             <span class="nav-logo"><img src={logoImage} width="34" height="34" alt="" class={props.homeIcons ? "shrink-0 object-contain bg-white rounded-sm" : undefined} /></span>
             <span class="nav-wordmark font-display">Technovation<span>Ventures</span></span>
           </NuxtLink>
           <nav class="nav-desktop" aria-label="Primary navigation">{links()}</nav>
-          <button ref={toggle} class="nav-toggle" aria-expanded={open.value} aria-controls="mobile-navigation"
+          <button ref={toggle} class="nav-toggle" type="button" aria-expanded={open.value} aria-controls="mobile-navigation"
             aria-label={open.value ? "Close menu" : "Open menu"} onClick={() => { open.value = !open.value }}>
             {props.homeIcons ? (open.value ? <CloseIcon /> : <MenuIcon />) : (open.value ? "✕" : "☰")}
           </button>

@@ -1,7 +1,15 @@
 node_modules/
-dist/
+dist
 .nuxt/
 .output/
+.aws
+.aws/
+*.zip
+tvn-website-dev/
+aura-template-page.png
+otherspace-preview.png
+otherspace-share-screenshot.png
+services-concept.html
 .env
 .env.*
 !.env.example

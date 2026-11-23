@@ -2,9 +2,9 @@ import { useClientEffect } from "./useClientEffect"
 import { defineComponent, shallowRef, computed } from "vue"
 import { animate, createScope, createTimeline, stagger } from "animejs"
 const messages = [
-  { lines: ["Engineering systems.", "Governments depend on."], hold: 8200 },
-  { lines: ["Build what’s next.", "Software that delivers."], hold: 5800 },
-  { lines: ["Technovation Ventures.", "Your technology partner."], hold: 5800 },
+  { lines: ["Systems Africa runs on.", "Smarter with applied AI."], hold: 8200 },
+  { lines: ["Software for institutions.", "Built to deliver."], hold: 5800 },
+  { lines: ["Technovation Ventures.", "Secure. Accountable. Regional."], hold: 5800 },
 ]
 export const TypewriterHeading = defineComponent(
   (props: { paused?: boolean }) => {
@@ -98,7 +98,7 @@ export const TypewriterHeading = defineComponent(
     return () => (
       <h1 ref={ref} class="hero-headline font-display">
         <span class="sr-only">
-          Technovation Ventures. Engineering systems governments depend on.
+          Technovation Ventures. Systems Africa runs on, smarter with applied AI.
         </span>
         <span aria-hidden="true" class="headline-stage">
           {messages.map(({ lines: [title, subtitle] }, i) => (
