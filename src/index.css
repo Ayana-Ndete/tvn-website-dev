@@ -1525,3 +1525,150 @@ button:focus-visible, a:focus-visible { outline: 3px solid #1B63E8; outline-offs
 
 /* A quieter, visitor-led delivery sequence. */
 .homepage-shell .workflow-process-panel{background:radial-gradient(circle at 82% 34%,#cfe4ff 0,transparent 30%),linear-gradient(135deg,#f7fbff,#edf5fd);background-image:radial-gradient(circle at 82% 34%,#cfe4ff 0,transparent 30%),linear-gradient(135deg,#f7fbff,#edf5fd)}.homepage-shell .process-cosmic-glow,.homepage-shell .process-grid-lines{display:none}.homepage-shell .workflow-process-inner{max-width:1100px}.homepage-shell .workflow-process-inner .services-heading{margin-bottom:34px}.homepage-shell .workflow-process-inner .services-title{font-size:clamp(38px,4.8vw,64px);line-height:1.02}.delivery-highlight::before{display:none}.delivery-highlight>span::after{display:none}.workflow-timeline{grid-template-columns:1fr;gap:20px}.workflow-rail{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px}.workflow-rail-item{min-height:76px;justify-content:center;padding:13px 10px;border:1px solid #c9dcec;border-left:1px solid #c9dcec;border-radius:12px;background:#ffffffad;text-align:center;box-shadow:inset 0 1px #fff;transition:border-color .2s,background .2s,transform .2s}.workflow-rail-item:hover{transform:translateY(-3px);border-color:#6ba8ed}.workflow-rail-item>span:last-child{gap:0}.workflow-rail-item small{display:none}.workflow-rail-item strong{font-size:15px}.workflow-rail-number{width:26px;height:26px;margin-bottom:5px;border-radius:50%;font-size:9px}.workflow-rail-item.is-active{border:1px solid #1b63e8;border-left:1px solid #1b63e8;background:linear-gradient(145deg,#1f72de,#1557b7);box-shadow:0 12px 24px #1b63e82b;transform:none;animation:none}.workflow-rail-item.is-active:hover{transform:translateY(-3px) rotate(0)}.workflow-stage{position:relative;overflow:hidden;min-height:300px;padding:clamp(25px,4vw,44px);border:1px solid rgba(176,218,255,.55);border-radius:20px;background:linear-gradient(125deg,rgba(6,47,102,.86),rgba(20,105,199,.72),rgba(7,55,122,.83));box-shadow:inset 0 1px rgba(255,255,255,.3),inset 0 -1px rgba(5,26,67,.3),0 28px 60px rgba(17,79,161,.25);color:#fff;backdrop-filter:blur(20px);animation:workflow-glass-drift 12s ease-in-out infinite,workflow-stage-in .6s cubic-bezier(.16,1,.3,1) both}.workflow-stage::before{position:absolute;inset:-80% -30%;z-index:0;content:"";pointer-events:none;background:radial-gradient(circle at 30% 25%,rgba(209,238,255,.3),transparent 22%),radial-gradient(circle at 70% 70%,rgba(90,156,255,.38),transparent 28%),linear-gradient(115deg,transparent 42%,rgba(255,255,255,.13) 50%,transparent 58%);animation:workflow-glass-light 9s ease-in-out infinite}.workflow-stage>*{position:relative;z-index:1}.workflow-stage-top{padding-bottom:17px;border-color:rgba(212,235,255,.26)}.workflow-stage-badge{border:1px solid rgba(204,232,255,.34);background:rgba(190,224,255,.2);color:#eff8ff;backdrop-filter:blur(10px)}.workflow-stage-count,.workflow-stage-copy p{color:#d7ebff}.workflow-stage-copy{margin-top:25px}.workflow-stage-copy h3{color:#fff;font-size:clamp(30px,3.3vw,42px)}.workflow-stage-copy p{max-width:600px;font-size:16px;line-height:1.65;opacity:1}.workflow-outputs{margin-top:26px}.workflow-outputs div{border-color:rgba(204,232,255,.28);background:rgba(4,39,88,.27);backdrop-filter:blur(10px)}.workflow-outputs small{color:#9dd4ff}.workflow-outputs strong{color:#f4fbff}.workflow-stage-footer{padding-top:20px;border-color:rgba(212,235,255,.26)}.workflow-progress{background:rgba(2,29,72,.42)}.workflow-progress i{background:linear-gradient(90deg,#8dd7ff,#fff,#79b8ff)}.workflow-stage-footer button{border-radius:999px;background:rgba(241,249,255,.94);color:#12519f;box-shadow:0 8px 20px rgba(1,34,90,.25)}.workflow-stage-footer button:hover{background:#fff;color:#0c3d82}@keyframes workflow-glass-drift{0%,100%{background-position:0% 50%;transform:translateY(0)}50%{background-position:100% 50%;transform:translateY(-3px)}}@keyframes workflow-glass-light{0%,100%{transform:translate3d(-5%,-3%,0) rotate(-8deg)}50%{transform:translate3d(9%,6%,0) rotate(8deg)}}@keyframes workflow-stage-in{from{opacity:.25;transform:translateY(18px) scale(.985);filter:blur(5px)}to{opacity:1;transform:none;filter:blur(0)}}@media(max-width:800px){.workflow-rail{display:flex;overflow-x:auto;padding-bottom:5px}.workflow-rail-item{flex:0 0 112px}.workflow-stage{min-height:0}}@media(prefers-reduced-motion:reduce){.workflow-rail-item,.workflow-stage-footer button{transition:none}.workflow-stage,.workflow-stage::before{animation:none}}
+
+/* Homepage scroll palette: logo navy #003C77, blue #0067FC and white #FCFCFC. Hero unchanged. */
+.homepage-shell .home-partners-strip {background:linear-gradient(180deg,#c8d4e1 0%,#d6dfe8 45%,#e3e9ef 100%);border-top-color:#a5bace;border-bottom-color:#e3e9ef;}
+.homepage-shell .partner-card {background:linear-gradient(145deg,#ffffff8c,#f0f3f666);border-color:#ffffff80;box-shadow:inset 0 1px #ffffff99,0 8px 24px #003c7708;}
+.homepage-shell .partner-card:hover {background:linear-gradient(145deg,#ffffffb3,#f0f3f699);border-color:#98b0c7;box-shadow:0 14px 30px #003c7714,inset 0 0 20px #ffffff33;}
+.homepage-shell .partner-name {color:#254d76;}
+.homepage-shell .partner-abbr {color:#003c77;}
+.homepage-shell .home-services-gateway {background:linear-gradient(180deg,#e3e9ef 0%,#ebeff3 32%,#ebeff3 100%);border-color:#d7e0e9;}
+.homepage-shell .home-services-gateway::before {background:radial-gradient(ellipse at 80% 40%,#a9bdd022,transparent 65%);}
+.homepage-shell .home-services-gateway h2 {color:#003c77;}
+.homepage-shell .home-services-gateway .highlight-cyan {color:#003c77;}
+.homepage-shell .home-services-gateway .services-lead {color:#355879;}
+.homepage-shell .services-cinematic-action {background:linear-gradient(135deg,#ffffffb8,#e5ebf0b8);border-color:#a7bbcf80;color:#003c77;box-shadow:0 6px 20px #003c770d,inset 0 1px #ffffffcc;}
+.homepage-shell .services-orbit-hub,.homepage-shell .services-orbit-tag {background:#f2f4f7bf;border-color:#a5bace66;color:#003c77;box-shadow:0 8px 28px #003c7712;}
+.homepage-shell .services-orbit-satellite-two,.homepage-shell .services-orbit-tag-integrations>i {background:#59789d;box-shadow:0 0 10px #59789d55;}
+.homepage-shell .home-work-gateway {background:linear-gradient(180deg,#ebeff3,#e6ebf1);border-color:#d7e0e9;}
+.homepage-shell .work-transition-sky {background:radial-gradient(ellipse at 78% 40%,#acbfd222,transparent 65%);}
+.homepage-shell .work-bold-highlight,.homepage-shell .home-work-gateway .services-kicker {color:#003c77;}
+.homepage-shell .home-work-link {background:#0067fc;border-color:#6488b3;box-shadow:0 8px 0 #003c77,0 12px 22px #003c771a;}
+.homepage-shell .home-work-link:hover {background:#005cde;box-shadow:0 11px 0 #003c77,0 16px 28px #003c7726;}
+.homepage-shell .workflow-process-panel {background:linear-gradient(180deg,#e6ebf1,#dde5ec);background-image:linear-gradient(180deg,#e6ebf1,#dde5ec);border-color:#d7e0e9;}
+.homepage-shell .workflow-process-inner .services-title {color:#003c77;}
+.homepage-shell .workflow-process-inner .services-title .delivery-highlight {color:#003c77;}
+.homepage-shell .workflow-rail-item {background:#f2f4f799;border-color:#b1c3d466;color:#003c77;box-shadow:inset 0 1px #ffffffa6;}
+.homepage-shell .workflow-rail-item.is-active {background:linear-gradient(145deg,#174f87,#003c77);border-color:#6488b3;color:#fff;box-shadow:0 12px 24px #003c771f;}
+.homepage-shell .workflow-stage {background:linear-gradient(125deg,#003c77e6,#285d91cc,#003c77e6);border-color:#bfcddc80;box-shadow:inset 0 1px #ffffff40,inset 0 -1px #003c7740,0 28px 60px #003c7726;}
+.homepage-shell .workflow-stage::before {background:radial-gradient(circle at 30% 25%,#e0e6ed26,transparent 22%),radial-gradient(circle at 70% 70%,#99b0c826,transparent 28%),linear-gradient(115deg,transparent 42%,#ffffff14 50%,transparent 58%);}
+.homepage-shell .workflow-outputs div {background:#003c7740;border-color:#d2dce633;}
+.homepage-shell .workflow-stage-footer button {background:#eff2f5;color:#003c77;box-shadow:0 8px 20px #003c7726;}
+.homepage-shell .engineering-preview {background:linear-gradient(180deg,#003c77,#003c77);border-color:#36506f;}
+.homepage-shell .engineering-notebook {background:#002e5cdb;border-color:#6b85a54d;box-shadow:0 28px 60px #061f3d33,inset 0 1px #ffffff0d;}
+.homepage-shell .engineering-entry-teal .engineering-entry-icon {background:#7893b51a;color:#b7c7d7;}
+.homepage-shell .home-unified-conclusion {background:linear-gradient(180deg,#003c77,#002950);}
+.homepage-shell .home-footer,.homepage-shell .home-final-cta {border-color:#7893b52e;}
+.homepage-shell .home-footer .footer-link {color:#b5c6d6;}
+
+/* Brand-blue separator between the partner belt and Services. */
+.homepage-shell #partners.home-partners-strip { border-bottom: 2px solid #1B63E8; }
+
+/* Services echoes the untouched hero; Work carries the navy into the light sequence. */
+.homepage-shell #services.home-services-gateway {
+  background:radial-gradient(ellipse at 82% 46%,#33699770,transparent 54%),linear-gradient(105deg,#061a3d 0%,#09254e 44%,#164273 100%);
+  color:#f4f8ff;border-bottom-color:#164273;
+}
+.homepage-shell #services .homepage-services h2 {color:#f4f8ff;}
+.homepage-shell #services .highlight-cyan {color:#a9d0ff;text-shadow:0 0 32px #5b9bff14;}
+.homepage-shell #services .services-lead {color:#c5d9f5;}
+.homepage-shell #services .services-index-badge {color:#9dbddd;}
+.homepage-shell #services .services-cinematic-action {background:linear-gradient(135deg,#1b63e8,#1855ba);border-color:#77aaff66;color:#fff;box-shadow:0 8px 24px #061a3d33,inset 0 1px #ffffff26;}
+.homepage-shell #services .services-cinematic-action:hover {background:linear-gradient(135deg,#3e7dfb,#1b63e8);border-color:#a9d0ff99;color:#fff;}
+.homepage-shell #services .action-icon {color:#e4f0ff;border-color:#b9d8ff66;}
+.homepage-shell #services .services-orbit-tag {background:linear-gradient(145deg,#23476bcc,#102c4bb3);color:#f4f8ff;border-color:#8fb5db55;box-shadow:0 8px 22px #061a3d33;}
+.homepage-shell #services .services-orbit-tag small {color:#b3cce6;}
+.homepage-shell #services .services-orbit-hub {background:linear-gradient(145deg,#2c5278e6,#12345ce6);border-color:#8fb5db66;box-shadow:0 8px 28px #061a3d40;}
+.homepage-shell #services .services-orbit-hub strong {color:#f4f8ff;}
+.homepage-shell #services .services-orbit-hub span,.homepage-shell #services .services-orbit-hub small {color:#a9d0ff;}
+.homepage-shell #services .services-orbit-dashed,.homepage-shell #services .services-orbit-ring {border-color:#91b9df55;}
+.homepage-shell #services .services-orbit-band {border-color:#8fb5db14;}
+.homepage-shell #services .services-orbit-ring::before {background:#7099bf14;border-color:#91b9df33;box-shadow:0 0 32px #5b9bff1a;}
+.homepage-shell #services .services-orbit-axis-x {background:linear-gradient(90deg,transparent,#91b9df44,transparent);}
+.homepage-shell #services .services-orbit-axis-y {background:linear-gradient(180deg,transparent,#91b9df44,transparent);}
+.homepage-shell #services .services-orbit-satellite {box-shadow:0 0 0 4px #12345c,0 0 14px #5b9bff66;}
+.homepage-shell #work.home-work-gateway {background:linear-gradient(180deg,#09254e 0%,#164273 6%,#a8bfd3 19%,#ebeff3 36%,#e3eaf1 100%);border-bottom-color:#e3eaf1;}
+.homepage-shell #how-we-work.workflow-process-panel {background:linear-gradient(180deg,#e3eaf1,#d5e0eb);background-image:linear-gradient(180deg,#e3eaf1,#d5e0eb);}
+
+/* Hero-scale typography and a matching navy canvas for the Code Centre preview. */
+.homepage-shell .engineering-preview {
+ background:radial-gradient(ellipse at 82% 46%,#33699770,transparent 54%),linear-gradient(105deg,#061a3d 0%,#09254e 44%,#164273 100%);
+ border-top-color:#adc1d533;
+}
+.homepage-shell .engineering-preview::before {background:linear-gradient(180deg,transparent 72%,#102c4b66);}
+.homepage-shell .engineering-preview::after {border-color:#9dbddd26;box-shadow:0 0 0 45px #9dbddd0a,0 0 0 90px #9dbddd05;}
+.homepage-shell .engineering-copy h2 span {color:#a9d0ff;}
+.homepage-shell .engineering-notebook {background:#0b2545c9;border-color:#8fb5db44;}
+.homepage-shell .home-unified-conclusion {background:linear-gradient(180deg,#09254e,#0b2038);}
+.homepage-shell .headline-primary {font-size:clamp(44px,5.3vw,76px);}
+.homepage-shell .headline-secondary {font-size:clamp(30px,3.2vw,47px);}
+.homepage-shell #services .homepage-services h2 {font-size:clamp(36px,4.4vw,56px);}
+.homepage-shell .home-work-gateway h2 {font-size:clamp(36px,3.8vw,52px);}
+.homepage-shell .workflow-process-inner .services-title {font-size:clamp(34px,4.1vw,54px);}
+.homepage-shell .workflow-stage-copy h3 {font-size:clamp(27px,2.8vw,36px);}
+.homepage-shell .engineering-copy h2 {font-size:clamp(40px,5.2vw,68px);}
+.homepage-shell .home-final-cta h2 {font-size:clamp(32px,3.7vw,50px);}
+@media(max-width:767px){
+ .homepage-shell .headline-primary {font-size:clamp(36px,9.3vw,52px);}
+ .homepage-shell .headline-secondary {font-size:clamp(25px,6.2vw,34px);}
+ .homepage-shell #services .homepage-services h2,.homepage-shell .home-work-gateway h2 {font-size:clamp(32px,8vw,44px);}
+ .homepage-shell .workflow-process-inner .services-title {font-size:clamp(30px,7.8vw,42px);}
+ .homepage-shell .engineering-copy h2 {font-size:clamp(36px,9vw,48px);}
+}
+
+/* A light consultation band separates the navy engineering section and footer. */
+.homepage-shell .home-unified-conclusion {background:linear-gradient(180deg,#e3eaf1,#f0f4f8);}
+.homepage-shell .home-final-cta {border-bottom-color:#b9cbdc;}
+.homepage-shell .home-final-cta h2,.homepage-shell .home-final-cta h2>span:first-child {color:#003c77;}
+.homepage-shell .home-final-cta h2>span:last-child {color:#1b63e8;}
+.homepage-shell .home-final-cta p {color:#355879;}
+.homepage-shell .home-final-cta .cta-mission-tag {color:#285b89;}
+.homepage-shell .home-final-cta .cta-radial-spotlight {background:radial-gradient(circle,#8baed02b,transparent 70%);}
+.homepage-shell .home-final-cta .cta-grid-lines {background-image:linear-gradient(#003c770d 1px,transparent 1px),linear-gradient(90deg,#003c770d 1px,transparent 1px);}
+.homepage-shell .home-footer {background:#0b2038;box-shadow:0 0 0 100vmax #0b2038;clip-path:inset(0 -100vmax);border-top-color:#7897b52e;}
+
+/* A quiet, edge-faded divider between Work and the delivery process. */
+.homepage-shell #how-we-work.workflow-process-panel {
+ border-top-color:transparent;
+ background-image:linear-gradient(90deg,transparent 3%,#1b63e826 24%,#1b63e84d 50%,#1b63e826 76%,transparent 97%),linear-gradient(180deg,#e3eaf1,#d5e0eb);
+ background-size:100% 1px,100% 100%;
+ background-position:center top,center;
+ background-repeat:no-repeat;
+}
+
+/* The partner belt bridges the two navy scenes with a lighter glass centre. */
+.homepage-shell #partners.home-partners-strip {
+ background:linear-gradient(180deg,#061a3d 0%,#09254e 5%,#7f9bb6 18%,#d7e1eb 32%,#e3eaf1 50%,#d7e1eb 68%,#7f9bb6 82%,#09254e 95%,#061a3d 100%);
+ border-top-color:#164273;
+ border-bottom-color:#1b63e8;
+}
+.homepage-shell #partners .partner-card {background:linear-gradient(145deg,#ffffffc7,#edf3f8ad);border-color:#ffffff99;}
+.homepage-shell #partners .partner-card:hover {background:linear-gradient(145deg,#ffffffe0,#edf3f8cc);}
+
+/* Continuous navy canvas, with a soft pool of light behind the partner cards. */
+.homepage-shell #partners.home-partners-strip {
+ background:radial-gradient(ellipse at 50% 50%,#9dbbd226 0%,#7099bf14 40%,transparent 75%),radial-gradient(ellipse at 82% 46%,#33699770,transparent 54%),linear-gradient(105deg,#061a3d 0%,#09254e 44%,#164273 100%);
+ border-top-color:transparent;
+ border-bottom:0;
+}
+.homepage-shell #hero.hero-scene::after {background:transparent;}
+.homepage-shell #partners .partner-card {background:linear-gradient(145deg,#e6eff8d9,#ceddeab3);border-color:#c5d9ec55;box-shadow:inset 0 1px #ffffff40,0 8px 24px #061a3d14;}
+.homepage-shell #partners .partner-card:hover {background:linear-gradient(145deg,#eef5fce6,#d9e5f0cc);border-color:#c5d9ec88;box-shadow:inset 0 1px #ffffff55,0 12px 28px #061a3d26;}
+
+/* Keep partner cards clear at both edges of the belt. */
+.homepage-shell #partners .partner-window { -webkit-mask-image:none; mask-image:none; }
+
+/* Carry the Services canvas into Work before opening into the light background. */
+.homepage-shell #services.home-services-gateway {border-bottom-color:transparent;}
+.homepage-shell #work.home-work-gateway {
+ border-top-color:transparent;
+ background:linear-gradient(180deg,transparent 0%,#e3eaf100 5%,#e3eaf108 11%,#e3eaf11f 18%,#e3eaf145 26%,#e3eaf17d 35%,#e3eaf1b8 45%,#e3eaf1e6 55%,#e3eaf1 66%),radial-gradient(ellipse at 82% -54%,#33699770,transparent 76%),linear-gradient(105deg,#061a3d 0%,#09254e 44%,#164273 100%);
+}
+.homepage-shell #work .work-transition-sky {background:transparent;}
+
+/* Solid background for the homepage Work section. */
+.homepage-shell #work.home-work-gateway {background:#e3eaf1;}
+.homepage-shell #work.home-work-gateway::before,.homepage-shell #work .work-transition-sky {background:none;}
+
+/* Link text stays plain; the arrow keeps its separate circular button. */
+.homepage-shell .engineering-link>span:first-child,.homepage-shell .engineering-link:hover>span:first-child {border:0;border-radius:0;background:none;box-shadow:none;}
