@@ -92,7 +92,7 @@ if [ -d ".output" ]; then
     rm -rf .output
 fi
 echo "Unzipping the new app..."
-unzip -o tvn-website.zip 
+unzip -o tvn-website.zip
 echo "Unzipping completed successfully."
 echo "Starting the app..."
 service $SERVICE_NAME restart

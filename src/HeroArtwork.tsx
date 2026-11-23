@@ -73,6 +73,8 @@ export const HeroArtwork = defineComponent(
               pointers[i] = animate(object, {
                 x: ((event.clientX - box.left) / box.width - 0.5) * depth,
                 y: ((event.clientY - box.top) / box.height - 0.5) * depth,
+                rotateY: ((event.clientX - box.left) / box.width - 0.5) * 3,
+                rotateX: ((event.clientY - box.top) / box.height - 0.5) * -2,
                 duration: 900,
                 ease: "out(3)",
               })
@@ -84,6 +86,8 @@ export const HeroArtwork = defineComponent(
               pointers[i] = animate(object, {
                 x: 0,
                 y: 0,
+                rotateX: 0,
+                rotateY: 0,
                 duration: 700,
                 ease: "out(3)",
               })

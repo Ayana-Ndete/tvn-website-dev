@@ -47,6 +47,7 @@ onMounted(load)
         <div><p class="admin-kicker">CODE CENTRE / ADMIN</p><h1>Posts</h1></div>
         <div class="admin-actions">
           <NuxtLink class="admin-button admin-secondary" to="/code-centre">View Code Centre</NuxtLink>
+          <NuxtLink class="admin-button admin-secondary" to="/admin/enquiries">Contact enquiries</NuxtLink>
           <NuxtLink class="admin-button admin-secondary" to="/admin/settings">Website Settings</NuxtLink>
           <NuxtLink class="admin-button" to="/admin/posts/new">New post</NuxtLink>
           <button class="admin-secondary" @click="logout">Sign out</button>

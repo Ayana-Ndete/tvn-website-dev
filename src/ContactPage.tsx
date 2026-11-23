@@ -18,8 +18,9 @@ export default defineComponent({
     const scrolled = shallowRef(false)
     const router = useRouter()
     const api = useApi()
-    const submitted = shallowRef(false)
+    const submitting = shallowRef(false)
     const submitError = shallowRef("")
+    const serviceError = shallowRef("")
 
     useClientEffect(() => {
       document.title = "Contact Us — Technovation Ventures"
@@ -30,7 +31,7 @@ export default defineComponent({
     }, () => [])
 
     const submit = async (form: HTMLFormElement) => {
-      submitted.value = true
+      submitting.value = true
       submitError.value = ""
       const data = new FormData(form)
       try {
@@ -47,7 +48,7 @@ export default defineComponent({
       } catch (error: any) {
         submitError.value = error?.data?.statusMessage || "We couldn't send your enquiry. Please try again."
       } finally {
-        submitted.value = false
+        submitting.value = false
       }
     }
 
@@ -59,19 +60,47 @@ export default defineComponent({
             <div class="contact-intro">
               <p class="contact-eyebrow"><span /> Start a conversation</p>
               <h1 id="contact-title">Have a project<br />in mind?</h1>
-              <p>Tell us about the process technology, or AI, could transform. We’ll get back to you within one business day with a free initial assessment.</p>
+              <p>
+                Tell us about the process technology, or AI, could transform.
+                We’ll get back to you within one business day with a free
+                initial assessment.
+              </p>
               <div class="contact-aside" aria-label="Contact details">
-                <a href="mailto:info@technovation.co.ke">info@technovation.co.ke</a>
+                <a href="mailto:info@technovation.ke">info@technovation.ke</a>
                 <a href="tel:+254202392555">+254 20 239 2555</a>
                 <span>Allamano Centre (Consolata Shrine), Westlands, Nairobi</span>
               </div>
             </div>
+
             <form class="contact-form" onSubmit={(event: SubmitEvent) => { event.preventDefault(); submit(event.currentTarget as HTMLFormElement) }}>
-              <div class="contact-field"><label for="full-name">Full name</label><input id="full-name" name="name" autocomplete="name" placeholder="John Doe" required /></div>
-              <div class="contact-field"><label for="email">Email address</label><input id="email" name="email" type="email" autocomplete="email" placeholder="john@company.com" required /></div>
-              <div class="contact-field"><label for="service">What do you need help with?</label><select id="service" name="service" required><option value="" disabled selected>Select a service</option>{services.map((service) => <option key={service} value={service}>{service}</option>)}</select></div>
-              <div class="contact-field"><label for="project">Tell us about your project</label><textarea id="project" name="project" placeholder="Briefly describe what you want to build..." required /></div>
-              <div class="contact-submit-row">{submitError.value && <p class="contact-status is-visible" role="alert">{submitError.value}</p>}<button class="contact-submit" type="submit" disabled={submitted.value}>{submitted.value ? "Sending…" : "Send enquiry"} <span aria-hidden="true">→</span></button></div>
+              <div class="contact-field">
+                <label for="full-name">Full name</label>
+                <input id="full-name" name="name" autocomplete="name" placeholder="John Doe" required />
+              </div>
+              <div class="contact-field">
+                <label for="email">Email address</label>
+                <input id="email" name="email" type="email" autocomplete="email" placeholder="john@company.com" required />
+              </div>
+              <div class="contact-field">
+                <label for="service">What do you need help with?</label>
+                <select id="service" name="service" required aria-describedby={serviceError.value ? "service-error" : undefined}
+                  onChange={(event) => { if ((event.target as HTMLSelectElement).value) serviceError.value = "" }}
+                  onInvalid={(event) => { if (!(event.target as HTMLSelectElement).value) serviceError.value = "Please select a service." }}>
+                  <option value="" disabled selected>Select a service</option>
+                  {services.map((service) => <option key={service} value={service}>{service}</option>)}
+                </select>
+                {serviceError.value && <p id="service-error" class="contact-field-error" role="alert">{serviceError.value}</p>}
+              </div>
+              <div class="contact-field">
+                <label for="project">Tell us about your project</label>
+                <textarea id="project" name="project" placeholder="Briefly describe what you want to build..." required />
+              </div>
+              <div class="contact-submit-row">
+                {submitError.value && <p class="contact-status is-visible" role="alert">{submitError.value}</p>}
+                <button class="contact-submit" type="submit" disabled={submitting.value}>
+                  {submitting.value ? "Sending…" : "Send enquiry"} <span aria-hidden="true">→</span>
+                </button>
+              </div>
             </form>
           </section>
         </main>

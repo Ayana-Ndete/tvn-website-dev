@@ -14,16 +14,9 @@ import logoImage from "./assets/images/brand/technovation-logo.png"
 
 const navLinks = [
   { label: "Home", to: "/", section: "hero" },
-
+  { label: "Services", to: "/services", section: "services" },
+  { label: "Our Work", to: "/projects", section: "work" },
   { label: "About", to: "/about", section: "about" },
-
-  { label: "Services", to: "/#services", section: "services" },
-
-  { label: "Projects", to: "/projects", section: "recent-work" },
-
-  { label: "Products", to: "/products", section: "products" },
-
-  { label: "Code Centre", to: "/code-centre", section: "code-centre" },
 ]
 
 const Arrow = () => (

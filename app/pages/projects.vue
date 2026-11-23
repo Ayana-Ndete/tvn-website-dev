@@ -3,5 +3,5 @@ import PageContent from "../../src/ProjectsPage"
 </script>
 
 <template>
-  <PageContent />
+  <PageContent :embedded="false" />
 </template>

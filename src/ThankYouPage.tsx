@@ -3,12 +3,18 @@ import { NuxtLink } from "#components"
 import Navbar from "./Navbar"
 import { useClientEffect } from "./useClientEffect"
 
-const Checkmark = () => <svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="1.5" /><path d="m15.5 24.5 5.6 5.6 11.8-12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+const Checkmark = () => (
+  <svg viewBox="0 0 48 48" fill="none" aria-hidden="true">
+    <circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="1.5" />
+    <path d="m15.5 24.5 5.6 5.6 11.8-12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+  </svg>
+)
 
 export default defineComponent({
   name: "ThankYouPage",
   setup() {
     const scrolled = shallowRef(false)
+
     useClientEffect(() => {
       document.title = "Enquiry received — Technovation Ventures"
       const update = () => { scrolled.value = window.scrollY > 32 }

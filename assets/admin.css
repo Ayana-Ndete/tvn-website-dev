@@ -22,6 +22,9 @@ button:disabled { opacity: .55; cursor: wait; }
 .admin-table th, .admin-table td { text-align: left; padding: 14px 12px; border-bottom: 1px solid #e5ebf1; vertical-align: top; }
 .admin-table th { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: #617285; }
 .admin-status { display: inline-flex; padding: 5px 9px; border-radius: 999px; background: #eef3f8; font-size: 12px; font-weight: 800; }
+.admin-status-new { color: #075c86; background: #dff3ff; }
+.admin-enquiries-table a { color: #0a4e7a; }.admin-enquiry-message { max-width: 340px; white-space: pre-wrap; line-height: 1.5; }
+.admin-text-button { display: flex; margin-top: 9px; padding: 0; color: #0a4e7a; background: none; font-size: 12px; }
 .admin-form { padding: 28px; }
 .admin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 18px; }
 .admin-form-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 22px; }

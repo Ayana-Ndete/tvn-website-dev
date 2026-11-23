@@ -1,699 +1,91 @@
 import Navbar from "./Navbar"
-
-import { useClientEffect } from "./useClientEffect"
-
-import { defineComponent, shallowRef, computed, type CSSProperties } from "vue"
-
-import countries from "./africaMap.json"
-
+import { defineComponent, nextTick, onMounted, onUnmounted, shallowRef, watch } from "vue"
 import { useRoute } from "#imports"
-
+import { useClientEffect } from "./useClientEffect"
 import { NuxtLink } from "#components"
+import { projects, publicProjectStatistics, type Project } from "./projectData"
 
-import { work } from "./projectCatalog"
+const priorityProjectIds = ["sarit-belong", "dtic-ntb", "technovation-ticketing", "zfda-irmis", "chanuka"]
+const featuredProjects = priorityProjectIds.map((id) => projects.find((project) => project.id === id)).filter((project): project is Project => Boolean(project))
+const otherProjects = projects.filter((project) => !priorityProjectIds.includes(project.id))
 
-const locations = [
-  { name: "Kenya", x: 387, y: 375, labelX: 426, labelY: 364 },
-
-  { name: "Uganda", x: 289, y: 338, labelX: 240, labelY: 298 },
-
-  { name: "Tanzania", x: 442, y: 486, labelX: 458, labelY: 498 },
-
-  { name: "Rwanda", x: 231, y: 390, labelX: 157, labelY: 375 },
-
-  { name: "Burundi", x: 225, y: 419, labelX: 154, labelY: 438 },
-]
-
-type Project = typeof work[number]
-
-function EdgeSignal() {
-  return (
-    <svg class="px-edge" aria-hidden="true">
-      <rect x="1" y="1" rx="20" pathLength="100" />
-      <rect x="1" y="1" rx="20" pathLength="100" />
-    </svg>
-  )
+const ProjectIcon = ({ category = "" }: { category?: string }) => {
+  const stroke = { fill: "none", stroke: "currentColor", "stroke-width": "1.5", "stroke-linecap": "round" as const, "stroke-linejoin": "round" as const }
+  if (category.includes("Regulatory")) return <svg viewBox="0 0 24 24" aria-hidden="true"><path {...stroke} d="M12 3 20 7v5c0 5-3.4 7.8-8 9-4.6-1.2-8-4-8-9V7l8-4Z" /><path {...stroke} d="m8.5 12 2.2 2.2 4.7-4.7" /></svg>
+  if (category.includes("Trade")) return <svg viewBox="0 0 24 24" aria-hidden="true"><path {...stroke} d="M4 7h12M12 3l4 4-4 4M20 17H8m4 4-4-4 4-4" /></svg>
+  if (category.includes("Customer")) return <svg viewBox="0 0 24 24" aria-hidden="true"><circle {...stroke} cx="12" cy="8" r="3" /><path {...stroke} d="M5 21c.7-4 3.1-6 7-6s6.3 2 7 6M19 4v5M21.5 6.5h-5" /></svg>
+  return <svg viewBox="0 0 24 24" aria-hidden="true"><rect {...stroke} x="4" y="4" width="16" height="16" rx="3" /><path {...stroke} d="M8 9h8M8 13h5M8 17h3" /></svg>
 }
 
-export default defineComponent(
-  () => {
-    const location = shallowRef("Kenya")
-
-    const selected = shallowRef<Project>(work[0]!)
-
-    const detail = shallowRef<Project | null>(null)
-
-    const hover = shallowRef<string | null>(null)
-
-    const motionPaused = shallowRef(false)
-
-    const page = shallowRef<HTMLDivElement | null>(null)
-
-    const progress = shallowRef<HTMLDivElement | null>(null)
-
-    const dialog = shallowRef<HTMLDialogElement | null>(null)
-
-    const route = useRoute()
-
-    const isProducts = computed(
-      () => route.path.replace(/\/$/, "") === "/products",
-    )
-
-    const visible = computed(() =>
-      location.value === "All projects"
-        ? work
-        : work.filter((p) => p.place === location.value),
-    )
-
-    const choose = (name: string) => {
-      location.value = name
-
-      selected.value = work.find((p) => p.place === name) ?? work[0]!
-    }
-
-    useClientEffect(
-      () => {
-        const media = window.matchMedia("(prefers-reduced-motion: reduce)")
-
-        const observer = new IntersectionObserver(
-          (entries) =>
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                if (!media.matches)
-                  entry.target.animate(
-                    [
-                      { opacity: 0.35, transform: "translateY(25px)" },
-
-                      { opacity: 1, transform: "translateY(0)" },
-                    ],
-
-                    { duration: 650, easing: "cubic-bezier(.2,.8,.2,1)" },
-                  )
-
-                observer.unobserve(entry.target)
-              }
-            }),
-
-          { threshold: 0.12 },
-        )
-
-        page.value
-
-          ?.querySelectorAll(
-            ".px-section-title,.px-product-card,.px-project-grid,.px-cta",
-          )
-
-          .forEach((el) => observer.observe(el))
-
-        let frame = 0
-
-        const update = () => {
-          frame = 0
-
-          const distance =
-            document.documentElement.scrollHeight - window.innerHeight
-
-          if (progress.value)
-            progress.value.style.transform = `scaleX(${
-              distance > 0 ? window.scrollY / distance : 0
-            })`
-        }
-
-        const scroll = () => {
-          if (!frame) frame = requestAnimationFrame(update)
-        }
-
-        update()
-
-        window.addEventListener("scroll", scroll, { passive: true })
-
-        return () => {
-          observer.disconnect()
-
-          cancelAnimationFrame(frame)
-
-          window.removeEventListener("scroll", scroll)
-        }
-      },
-
-      () => [],
-    )
-
-    useClientEffect(
-      () => {
-        document.title = `${
-          isProducts.value ? "Products" : "Projects"
-        } — Technovation Ventures`
-
-        if (isProducts.value)
-          document
-
-            .getElementById("products")
-
-            ?.scrollIntoView({ behavior: "instant" })
-      },
-
-      () => [isProducts.value],
-    )
-
-    useClientEffect(
-      () => {
-        if (detail.value) dialog.value?.showModal()
-        else dialog.value?.close()
-      },
-
-      () => [detail.value],
-    )
-
-    return () => (
-      <div
-        ref={page}
-        class={`px-page ${motionPaused.value ? "px-motion-paused" : ""}`}
-      >
-        <div ref={progress} class="scroll-progress" aria-hidden="true" />
-        <a class="px-skip" href="#explorer">
-          Skip to project explorer
-        </a>
-        <Navbar scrolled />
-        <main>
-          <section class="px-hero px-wrap">
-            <div>
-              <p class="px-kicker">
-                <i /> OUR WORK, ON THE MAP
-              </p>
-              <h1>
-                Ideas put into practice.
-                <br />
-                <span>Built for opportunity.</span>
-              </h1>
-            </div>
-            <div class="px-intro">
-              <p>
-                We turn complex operational, regulatory and commercial
-                challenges into digital solutions. Explore the platforms,
-                systems and applications we build to help organisations work
-                smarter, connect services and create new opportunities.
-              </p>
-              <a
-                class="px-down"
-                href="#explorer"
-                aria-label="Scroll to the project map"
-              >
-                <svg viewBox="0 0 24 32" fill="none" aria-hidden="true">
-                  <path
-                    d="M12 3V27M4 19L12 27L20 19"
-                    stroke="currentColor"
-                    stroke-width="1.5"
-                  />
-                </svg>
-              </a>
-            </div>
-          </section>
-          <section
-            id="explorer"
-            class="px-wrap px-explorer"
-            aria-label="Interactive project explorer"
-          >
-            <div class="px-explorer-top">
-              <div>
-                <span class="px-live" /> PROJECT ATLAS{" "}
-                <span class="px-dim"> / EAST AFRICA</span>
-              </div>
-              <span class="px-map-instruction">
-                Tap a country to discover our work
-              </span>
-              <button
-                class="px-motion-toggle"
-                aria-pressed={motionPaused.value}
-                onClick={() => (motionPaused.value = !motionPaused.value)}
-              >
-                {motionPaused.value ? "Resume motion" : "Pause motion"}
-              </button>
-            </div>
-            <div class="px-atlas-grid">
-              <div class="px-map">
-                <svg
-                  viewBox="80 210 560 355"
-                  aria-label="East Africa project locations"
-                >
-                  <defs>
-                    <pattern
-                      id="map-grid"
-                      width="46"
-                      height="46"
-                      patternUnits="userSpaceOnUse"
-                    >
-                      <path
-                        d="M 46 0 L 0 0 0 46"
-                        fill="none"
-                        stroke="#93b8cb"
-                        stroke-opacity=".07"
-                      />
-                    </pattern>
-                    <radialGradient id="map-light">
-                      <stop stop-color="#32698c" stop-opacity=".3" />
-                      <stop offset="1" stop-color="#122733" stop-opacity="0" />
-                    </radialGradient>
-                  </defs>
-                  <rect
-                    x="0"
-                    y="90"
-                    width="720"
-                    height="590"
-                    fill="url(#map-grid)"
-                  />
-                  <ellipse
-                    cx="340"
-                    cy="360"
-                    rx="330"
-                    ry="300"
-                    fill="url(#map-light)"
-                  />
-                  {countries.map((c) => {
-                    const active = locations.some((l) => l.name === c.name)
-
-                    return (
-                      <path
-                        key={c.name}
-                        d={c.d}
-                        class={`px-country ${active ? "px-covered" : ""} ${
-                          location.value === c.name ? "px-selected" : ""
-                        } ${hover.value === c.name ? "px-hover" : ""}`}
-                        onClick={active ? () => choose(c.name) : undefined}
-                        onMouseenter={
-                          active ? () => (hover.value = c.name) : undefined
-                        }
-                        onMouseleave={() => (hover.value = null)}
-                        aria-hidden="true"
-                      />
-                    )
-                  })}
-                  <text x="220" y="160" class="px-neighbour">
-                    SOUTH SUDAN
-                  </text>
-                  <text x="458" y="189" class="px-neighbour">
-                    ETHIOPIA
-                  </text>
-                  <text x="97" y="330" class="px-neighbour">
-                    D. R. CONGO
-                  </text>
-                  <text x="550" y="412" class="px-ocean">
-                    INDIAN
-                  </text>
-                  <text x="555" y="433" class="px-ocean">
-                    OCEAN
-                  </text>
-                  <text x="306" y="503" class="px-neighbour">
-                    TANZANIA
-                  </text>
-                  {locations
-
-                    .filter((l) => l.name !== "Kenya")
-
-                    .map((l, index) => (
-                      <g
-                        key={l.name}
-                        aria-hidden="true"
-                        style={
-                          {
-                            "--signal-delay": `${index * -0.9}s`,
-                          } as CSSProperties
-                        }
-                      >
-                        <path
-                          d={`M387 375 Q ${(387 + l.x) / 2 + 35} ${(375 + l.y) / 2 - 40} ${l.x} ${l.y}`}
-                          class="px-connection"
-                        />
-                        <path
-                          pathLength="100"
-                          d={`M387 375 Q ${(387 + l.x) / 2 + 35} ${(375 + l.y) / 2 - 40} ${l.x} ${l.y}`}
-                          class="px-connection-signal"
-                        />
-                      </g>
-                    ))}
-                  {locations.map((l) => (
-                    <g
-                      key={l.name}
-                      role="button"
-                      tabindex={0}
-                      aria-label={`Explore ${l.name} projects`}
-                      aria-pressed={location.value === l.name}
-                      onClick={() => choose(l.name)}
-                      onKeydown={(e) => {
-                        if (e.key === "Enter" || e.key === " ") {
-                          e.preventDefault()
-
-                          choose(l.name)
-                        }
-                      }}
-                      onMouseenter={() => (hover.value = l.name)}
-                      onMouseleave={() => (hover.value = null)}
-                      class={`px-pin ${
-                        location.value === l.name ? "px-pin-active" : ""
-                      }`}
-                    >
-                      <circle cx={l.x} cy={l.y} r="26" class="px-pin-hit" />
-                      <circle cx={l.x} cy={l.y} r="12" class="px-pin-pulse" />
-                      <circle cx={l.x} cy={l.y} r="14" class="px-pin-ring" />
-                      <circle cx={l.x} cy={l.y} r="5" class="px-pin-core" />
-                      <text x={l.labelX} y={l.labelY}>
-                        {l.name === "Tanzania" ? "Zanzibar" : l.name}
-                        {location.value === l.name ? " ↗" : ""}
-                      </text>
-                    </g>
-                  ))}
-                  <g class="px-compass" transform="translate(609 248)">
-                    <text y="-12">N</text>
-                    <path d="M0 0L-5 20L0 15L5 20Z" />
-                  </g>
-                </svg>
-                <div class="px-map-caption">
-                  <span>
-                    <i /> Project location
-                  </span>
-                  <span>Boundaries: Natural Earth</span>
-                </div>
-                <div class="px-map-hint">
-                  {hover.value
-                    ? `Discover ${hover.value} →`
-                    : "From Nairobi, across the region."}
-                </div>
-              </div>
-              <aside
-                class="px-preview"
-                aria-live="polite"
-                aria-atomic="true"
-                key={selected.value.id}
-              >
-                <div class="px-preview-top">
-                  <span class="px-kicker">
-                    {selected.value.place === "Tanzania"
-                      ? "Zanzibar · Tanzania"
-                      : selected.value.place}
-                  </span>
-                  <span>
-                    {String(work.indexOf(selected.value) + 1).padStart(2, "0")}{" "}
-                    / {String(work.length).padStart(2, "0")}
-                  </span>
-                </div>
-                <div class="px-browser">
-                  <div>
-                    <i />
-                    <i />
-                    <i />
-                    <span>{selected.value.name}</span>
-                  </div>
-                  <img
-                    class={
-                      [
-                        "kncci",
-                        "nda",
-                        "smstele",
-                        "biasharalink",
-                        "dealhouse",
-                      ].includes(selected.value.id)
-                        ? "px-project-logo"
-                        : selected.value.id === "sarit"
-                          ? "px-app-shot"
-                          : undefined
-                    }
-                    src={selected.value.image}
-                    alt={`${selected.value.name} interface`}
-                  />
-                </div>
-                <p class="px-category">
-                  {selected.value.year} / {selected.value.category}
-                </p>
-                <h2>{selected.value.name}</h2>
-                <p class="px-description">{selected.value.description}</p>
-                <button
-                  class="px-action"
-                  onClick={() => (detail.value = selected.value)}
-                >
-                  Explore project <span>↗</span>
-                </button>
-                <p class="px-preview-note">
-                  Purpose-built technology. Regional perspective.
-                </p>
-              </aside>
-            </div>
-            <div
-              class="px-location-list"
-              aria-label="Filter projects by location"
-            >
-              {[
-                "All projects",
-
-                ...locations.map((l) => l.name),
-
-                "Regional",
-
-                "Other projects",
-              ].map((name) => (
-                <button
-                  key={name}
-                  aria-pressed={location.value === name}
-                  onClick={() => choose(name)}
-                >
-                  {name}
-                  <span>
-                    {name === "All projects"
-                      ? work.length
-                      : work.filter((p) => p.place === name).length}
-                  </span>
-                </button>
-              ))}
-            </div>
-          </section>
-          <nav class="px-section-nav px-wrap" aria-label="Page sections">
-            <a href="#explorer">
-              01 <span>Project atlas</span> ↑
-            </a>
-            <a href="#collection">
-              02 <span>Project collection</span> ↓
-            </a>
-            <a href="#products">
-              03 <span>Our products</span> ↓
-            </a>
-          </nav>
-          <section id="collection" class="px-wrap px-collection">
-            <div class="px-section-title">
-              <div>
-                <p class="px-kicker">THE PROJECT COLLECTION</p>
-                <h2>
-                  {location.value === "All projects"
-                    ? "Ideas put into practice."
-                    : location.value === "Other projects"
-                      ? "More of our work."
-                      : `A closer look at ${
-                          location.value === "Regional"
-                            ? "the region"
-                            : location.value
-                        }.`}
-                </h2>
-              </div>
-              <p aria-live="polite">
-                {visible.value.length}{" "}
-                {visible.value.length === 1 ? "project" : "projects"}{" "}
-                <span> / </span>
-                <button onClick={() => choose("All projects")}>
-                  View all projects ↗
-                </button>
-              </p>
-            </div>
-            <div
-              class={`px-project-grid ${
-                visible.value.length === 1 ? "px-project-featured" : ""
-              }`}
-            >
-              {visible.value.map((p) => (
-                <button
-                  class="px-project-tile"
-                  key={p.id}
-                  onClick={() => (detail.value = p)}
-                >
-                  <EdgeSignal />
-                  <div class="px-tile-image">
-                    <img
-                      class={
-                        [
-                          "kncci",
-                          "nda",
-                          "smstele",
-                          "biasharalink",
-                          "dealhouse",
-                        ].includes(p.id)
-                          ? "px-project-logo"
-                          : p.id === "sarit"
-                            ? "px-app-shot"
-                            : undefined
-                      }
-                      loading="lazy"
-                      src={p.image}
-                      alt={`${p.name} interface`}
-                    />
-                    <span>↗</span>
-                  </div>
-                  <div class="px-tile-copy">
-                    <p>
-                      {p.year} <span> / {p.category}</span>
-                    </p>
-                    <h3>{p.name}</h3>
-                    <p>{p.description}</p>
-                    <div class="px-tile-features">
-                      {p.features.slice(0, 2).map((f) => (
-                        <span key={f}>{f}</span>
-                      ))}
-                    </div>
-                    <span class="px-tile-link">
-                      Discover the project <span>↗</span>
-                    </span>
-                  </div>
-                </button>
-              ))}
-            </div>
-            {location.value === "Other projects" && (
-              <p class="px-footnote">
-                These systems are listed separately because their deployment
-                locations are not specified in the published portfolio.
-              </p>
-            )}
-          </section>
-          <section id="products" class="px-products">
-            <div class="px-wrap">
-              <div class="px-section-title">
-                <div>
-                  <p class="px-kicker">OUR PRODUCTS</p>
-                  <h2>
-                    Your next chapter.
-                    <br />
-                    <span>Already taking shape.</span>
-                  </h2>
-                </div>
-                <p>
-                  Proven platforms for the work that matters.
-                  <br />
-                  Let’s find the right fit for your organisation.
-                </p>
-              </div>
-              <div class="px-product-grid">
-                <article class="px-product-card">
-                  <EdgeSignal />
-                  <span class="px-product-number">
-                    01 / CUSTOMER EXPERIENCE
-                  </span>
-                  <h3>Ticket Management System</h3>
-                  <p class="px-product-description">
-                    Organise, prioritise and track support tickets. Keep
-                    customers informed with personalised SMS updates.
-                  </p>
-                  <div class="px-tags">
-                    <span>Ticket tracking</span>
-                    <span>SMS updates</span>
-                  </div>
-                  <a>
-                    Enquire about this product <span>↗</span>
-                  </a>
-                </article>
-                <article class="px-product-card px-product-regulatory">
-                  <EdgeSignal />
-                  <span class="px-product-number">
-                    02 / MEDICINE REGULATION
-                  </span>
-                  <h3>Technovation NMRA System</h3>
-                  <p class="px-product-description">
-                    Manage medicine registration, licensing, inspections and
-                    safety in one platform for national medicine regulators.
-                  </p>
-                  <div class="px-tags">
-                    <span>Registration</span>
-                    <span>Licensing</span>
-                    <span>Pharmacovigilance</span>
-                  </div>
-                  <a>
-                    Enquire about this product <span>↗</span>
-                  </a>
-                </article>
-              </div>
-            </div>
-          </section>
-          <section class="px-wrap px-cta">
-            <p class="px-kicker">LET’S BUILD WHAT’S NEXT</p>
-            <h2>
-              Your ambition.
-              <br />
-              Our next point on the map.
-            </h2>
-            <NuxtLink class="px-action" to="/#contact">
-              Start a conversation <span>↗</span>
-            </NuxtLink>
-          </section>
-        </main>
-        <footer class="px-wrap px-footer">
-          <NuxtLink to="/">Technovation Ventures</NuxtLink>
-          <span>Nairobi, Kenya · Built for the region.</span>
-          <span>© {new Date().getFullYear()} Technovation Ventures Ltd.</span>
-        </footer>
-        <dialog
-          ref={dialog}
-          class="px-dialog"
-          onCancel={() => (detail.value = null)}
-          onClick={(e) => {
-            if (e.target === e.currentTarget) detail.value = null
-          }}
-          aria-labelledby="project-title"
-        >
-          {detail.value && (
-            <>
-              <button
-                class="px-dialog-close"
-                onClick={() => (detail.value = null)}
-                aria-label="Close project details"
-                autofocus
-              >
-                ✕
-              </button>
-              <img
-                class={
-                  [
-                    "kncci",
-                    "nda",
-                    "smstele",
-                    "biasharalink",
-                    "dealhouse",
-                  ].includes(detail.value.id)
-                    ? "px-project-logo"
-                    : detail.value.id === "sarit"
-                      ? "px-app-shot"
-                      : undefined
-                }
-                src={detail.value.image}
-                alt={`${detail.value.name} application screenshot`}
-              />
-              <div class="px-dialog-copy">
-                <p class="px-kicker">
-                  {detail.value.year} / {detail.value.category}
-                </p>
-                <h2 id="project-title">{detail.value.name}</h2>
-                <p>{detail.value.description}</p>
-                <h3>Overview</h3>
-                <p>{detail.value.overview}</p>
-                <h3>Key capabilities / focus areas</h3>
-                <ul>
-                  {detail.value.features.map((f) => (
-                    <li key={f}>{f}</li>
-                  ))}
-                </ul>
-                <h3>The value</h3>
-                <p>{detail.value.value}</p>
-                <a class="px-action">Discuss a similar project ↗</a>
-              </div>
-            </>
-          )}
-        </dialog>
-      </div>
-    )
-  },
-
-  { name: "ProjectsPage", props: [] },
+const AnimatedLetters = ({ text, className = "" }: { text: string; className?: string }) => (
+  <span class={`hero-letter-line ${className}`} aria-label={text}>{[...text].map((letter, index) => <span aria-hidden="true" class="hero-letter" style={{ "--letter-delay": `${index * 28}ms` }} key={`${letter}-${index}`}>{letter === " " ? "\u00a0" : letter}</span>)}</span>
 )
+
+export default defineComponent((props) => {
+  const expanded = shallowRef<string | null>(null)
+  const page = shallowRef<HTMLDivElement | null>(null)
+  const route = useRoute()
+  const openFromHash = (hash: string) => {
+    const match = hash.match(/^#case-study-(.+)$/)
+    const project = match && featuredProjects.find((item) => item.id === match[1])
+    expanded.value = project ? project.id : null
+    if (project) {
+      void nextTick(() => {
+        requestAnimationFrame(() => document.getElementById(`case-study-${project.id}`)?.scrollIntoView({ block: "start" }))
+      })
+    }
+  }
+  const openCaseStudy = (projectId: string) => {
+    // This stays entirely in Vue state. Changing the location fragment here
+    // can cause a route/navigation race in some browser deployments.
+    expanded.value = projectId
+    void nextTick(() => {
+      requestAnimationFrame(() => document.getElementById(`case-study-${projectId}`)?.scrollIntoView({ block: "start" }))
+    })
+  }
+  const closeCaseStudy = () => {
+    expanded.value = null
+  }
+  const handlePopState = () => openFromHash(window.location.hash)
+  const scrollToFeaturedWork = (event?: MouseEvent) => {
+    event?.preventDefault()
+    document.getElementById("featured-work")?.scrollIntoView({ behavior: "smooth", block: "start" })
+  }
+  watch(() => route.hash, openFromHash, { immediate: true })
+  onMounted(() => {
+    window.addEventListener("popstate", handlePopState)
+    if (route.hash === "#featured-work") {
+      void nextTick(() => requestAnimationFrame(() => scrollToFeaturedWork()))
+    }
+  })
+  onUnmounted(() => window.removeEventListener("popstate", handlePopState))
+  useClientEffect(() => {
+    const targets = page.value?.querySelectorAll<HTMLElement>(".work-reveal")
+    if (!targets?.length || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
+    const observer = new IntersectionObserver((entries) => entries.forEach((entry) => {
+      if (entry.isIntersecting) { entry.target.classList.add("is-visible"); observer.unobserve(entry.target) }
+    }), { threshold: .16, rootMargin: "0px 0px -6% 0px" })
+    targets.forEach((target) => observer.observe(target))
+    return () => observer.disconnect()
+  }, () => [])
+  const renderProject = (project: Project, index: number) => {
+    const open = expanded.value === project.id
+    const caseStudyId = `case-study-${project.id}`
+    const detailsId = `work-details-${project.id}`
+    const hasCaseStudy = Boolean(project.overview || project.role || project.scope?.length || project.outputs?.length || project.screenshots?.length)
+    const statistics = publicProjectStatistics(project.statistics)
+    return <article id={caseStudyId} class={{ "work-case": true, "work-case-reverse": index % 2 === 1, "work-reveal": true, "is-open": open }} key={project.id}>
+      <div class="work-case-visual">{project.image && <img src={project.image} alt={project.imageAlt ?? project.title} loading={index > 1 ? "lazy" : undefined} />}<span class="work-case-index">0{index + 1}</span><span class="work-case-icon"><ProjectIcon category={project.category} /></span>{project.status && <span class="work-case-status"><i /> {project.status === "Live" ? "Live system" : project.status}</span>}</div>
+      <div class="work-case-copy"><p class="work-case-meta">{[project.category, project.place, project.year].filter(Boolean).join(" / ")}</p><h3>{project.title}</h3><p>{project.description}</p>{project.tags && <div class="work-case-tags">{project.tags.slice(0, 3).map((tag) => <span key={tag}>{tag}</span>)}</div>}{hasCaseStudy && (open ? <button type="button" class="work-case-toggle" aria-expanded="true" aria-controls={detailsId} onClick={closeCaseStudy}>Close case study<b>−</b></button> : <button type="button" class="work-case-toggle" aria-expanded="false" aria-controls={detailsId} onClick={() => openCaseStudy(project.id)}>View case study<b>↗</b></button>)}{open && <section class="work-case-details" id={detailsId} tabindex="-1"><div><p class="work-detail-label">Project details</p><p>{project.overview ?? project.description}</p></div>{project.scope && <div><p class="work-detail-label">Key capabilities</p><ul class="work-detail-list">{project.scope.map((item) => <li key={item}>{item}</li>)}</ul></div>}{project.integrations && <div><p class="work-detail-label">Technology & integrations</p><ul class="work-detail-list">{project.integrations.map((item) => <li key={item}>{item}</li>)}</ul></div>}{project.role && <div><p class="work-detail-label">Our role</p><p>{project.role}</p></div>}{statistics.length > 0 && <div><p class="work-detail-label">Verified impact</p><div class="work-statistics">{statistics.map((statistic) => <p key={statistic.label}><b>{statistic.value}</b> {statistic.label}</p>)}</div></div>}{project.screenshots && <div class="work-shots">{project.screenshots.map((shot) => <figure key={shot.label}><img src={shot.src} alt={`${project.title} — ${shot.label}`} /><figcaption>{shot.label}</figcaption></figure>)}</div>}<NuxtLink to="/contact" class="work-case-contact">Discuss a similar system <b>→</b></NuxtLink></section>}</div>
+    </article>
+  }
+  return () => <div ref={page} class={{ "px-page": true, "px-portfolio-page": true, "work-page": true, "work-experience": true, "work-embedded": props.embedded }}>
+    {!props.embedded && <Navbar scrolled activeSection="work" />}
+    <main>
+      {!props.embedded && <section class="work-hero" aria-labelledby="projects-title"><div class="work-hero-grid" aria-hidden="true" /><div class="work-hero-glow" aria-hidden="true" /><div class="px-wrap work-hero-layout"><div class="work-hero-inner"><p class="work-eyebrow">Our work / deployed systems</p><h1 id="projects-title"><AnimatedLetters text="Technology " className="is-white" /><AnimatedLetters text="that" className="is-deep-blue" /><br /><AnimatedLetters text="works" className="is-white" /><br /><AnimatedLetters text="where it matters." className="is-deep-blue" /></h1><p class="work-hero-summary">Built for Africa.</p><a class="hero-scroll-link" href="#featured-work" onClick={scrollToFeaturedWork}><span>Explore work</span><b aria-hidden="true">↓</b></a></div></div></section>}
+      <section id="featured-work" class="work-collection" aria-label="Selected case studies"><div class="work-case-list">{featuredProjects.map((project, index) => renderProject(project, index))}</div></section>
+      <section class="work-more" aria-labelledby="more-work-title"><div class="px-wrap"><header class="work-heading work-reveal"><div><p class="work-eyebrow">More projects</p><h2 id="more-work-title">A decade of digital<br /><span>systems across Africa.</span></h2></div></header><div class="work-mini-grid">{otherProjects.map((project, index) => <article class="work-reveal" style={{ "--reveal-delay": `${index * 75}ms` }} key={project.id}>{project.year && <p>{project.year}</p>}<h3>{project.title}</h3>{project.description && <small>{project.description}</small>}</article>)}</div></div></section>
+      {!props.embedded && <section class="work-cta"><div class="px-wrap"><p class="work-eyebrow">Your next system</p><h2>Have a complex process<br />worth <span>making simpler?</span></h2><NuxtLink to="/contact">Talk to our team <b>→</b></NuxtLink></div></section>}
+    </main>
+  </div>
+}, { name: "ProjectsPage", props: { embedded: { type: Boolean, default: false } } })

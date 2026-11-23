@@ -1,4 +1,4 @@
-import tailwindcss from "@tailwindcss/vite";
+import tailwindcss from "@tailwindcss/vite"
 
 const baseURL = (
   process.env.NUXT_APP_BASE_URL ||
@@ -41,12 +41,7 @@ export default defineNuxtConfig({
             "Software engineering and ICT consulting across East Africa.",
         },
       ],
-      link: [
-        {
-          rel: "icon",
-          href: `${baseURL.replace(/\/$/, "")}/brand/technovation-logo.png`,
-        },
-      ],
+      link: [{ rel: "icon", href: `${baseURL.replace(/\/$/, "")}/brand/technovation-logo.png` }],
     },
     baseURL,
   },
@@ -57,6 +52,7 @@ export default defineNuxtConfig({
         "/",
         "/about",
         "/history",
+        "/services",
         "/projects",
         "/portfolio",
         "/products",
@@ -70,4 +66,4 @@ export default defineNuxtConfig({
     "/**": { ssr: false },
     "/admin/**": { ssr: true },
   },
-});
+})
