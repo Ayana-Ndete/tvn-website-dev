@@ -157,6 +157,7 @@
 .work-case-details>div>p:last-child,.work-case-details .work-detail-list li{color:#334155;font-size:13px;line-height:1.65}
 .work-case-details .work-detail-list li::before{background:#2563eb}
 .work-case:nth-child(even) .work-case-details>div>p:last-child,.work-case:nth-child(even) .work-case-details .work-detail-list li{color:#dbeafe}
+.work-statistics{display:flex;flex-wrap:wrap;gap:8px}.work-statistics p{margin:0;padding:7px 9px;border:1px solid #bfdbfe;border-radius:5px;color:#334155!important;font-size:12px!important;line-height:1.4!important}.work-statistics b{color:#1d4ed8}.work-case:nth-child(even) .work-statistics p{border-color:#3b82f655;color:#dbeafe!important}.work-case:nth-child(even) .work-statistics b{color:#93c5fd}
 
 /* Project details unfold inside their own card, keeping visitors in context. */
 .px-country-projects{align-items:start}
