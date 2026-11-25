@@ -2,6 +2,7 @@ import { defineComponent, shallowRef } from "vue"
 import { NuxtLink } from "#components"
 import Navbar from "./Navbar"
 import { useClientEffect } from "./useClientEffect"
+import "./thank-you-blue.css"
 
 const Checkmark = () => (
   <svg viewBox="0 0 48 48" fill="none" aria-hidden="true">
