@@ -7,6 +7,7 @@ const navLinks = [
   { label: "Home", to: "/", section: "hero" },
   { label: "Services", to: "/services", section: "services" },
   { label: "Our Work", to: "/projects", section: "work" },
+  { label: "Our Journey", to: "/journey", section: "journey" },
   { label: "About", to: "/about", section: "about" },
 ]
 const Arrow = () => (

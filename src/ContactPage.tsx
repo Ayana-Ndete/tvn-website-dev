@@ -2,6 +2,7 @@ import { defineComponent, shallowRef } from "vue"
 import { useRouter } from "#imports"
 import { useApi } from "../app/composables/useApi"
 import Navbar from "./Navbar"
+import "./contact-select-fix.css"
 import { useClientEffect } from "./useClientEffect"
 
 const services = [

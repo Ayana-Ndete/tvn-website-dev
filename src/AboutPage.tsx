@@ -1,10 +1,15 @@
 import Navbar from "./Navbar"
-import HistoryPage from "./HistoryPage"
-import { NuxtLink } from "#components"
+import "./about-glass.css"
+import logoImage from "./assets/images/brand/technovation-logo.png"
 import { defineComponent, shallowRef } from "vue"
 import { useClientEffect } from "./useClientEffect"
 
-const metrics = [["2016", "Established", "Nairobi, Kenya"], ["06", "Regulators connected", "Across one regional system"], ["03", "Reporting channels", "Web, mobile and SMS"], ["10+", "Years in delivery", "From discovery through support"]]
+const strengths = [
+  ["Built for government scale", "High-availability deployments in government data centres, disaster recovery, and 99.5% availability."],
+  ["Integration depth", "M-Pesa, KCB, Vodacom USSD, ZanMalipo, KRA eTIMS, NetSuite, Dynamics, Sage, and more."],
+  ["Responsible AI", "Rules-before-AI guardrails, explainable decisions, full audit trails and human review of exceptions."],
+  ["Data protection by design", "Built for Kenya's Data Protection Act, on-premise or private cloud where data must stay in-country."],
+]
 
 export default defineComponent(() => {
   const scrolled = shallowRef(false)
@@ -24,12 +29,30 @@ export default defineComponent(() => {
     targets.forEach((target) => observer.observe(target))
     return () => observer.disconnect()
   }, () => [])
-  return () => <div ref={page} class="about-page about-story-page">
+  return () => <div ref={page} class="about-page about-reference-page">
     <Navbar tone="dark" scrolled={scrolled.value} activeSection="about" />
-    <main>
-      <section class="about-bridge about-opening" aria-labelledby="about-title"><div><p class="about-system-cap">A connected history</p><h1 id="about-title">Every milestone starts<br />with a <em>real need.</em></h1><p>Follow the systems, teams and institutions that have shaped the way we work.</p><a href="#history">Explore the journey <b>↓</b></a></div></section>
-      <section class="about-evidence" aria-labelledby="evidence-title"><div class="about-evidence-wrap"><header class="about-reveal"><p class="about-system-cap">Our footprint / at a glance</p><h2 id="evidence-title">Proof built into<br /><span>the work.</span></h2></header><div class="about-metrics">{metrics.map(([value, label, note], index) => <article class="about-reveal" style={{ "--reveal-delay": `${index * 90}ms` }} key={label}><span class="about-metric-index">0{index + 1}</span><strong>{value}</strong><h3>{label}</h3><p>{note}</p><i aria-hidden="true" /></article>)}</div></div></section>
-      <HistoryPage />
+    <main class="about-reference">
+      <section class="about-reference-hero" aria-labelledby="about-title">
+        <div class="about-reference-wrap">
+          <div class="about-reference-mark">
+            <img src={logoImage} width="116" height="116" alt="Technovation Ventures" />
+          </div>
+          <div class="about-reference-copy about-reveal">
+            <p>About Technovation</p>
+            <h1 id="about-title">Digital systems Africa's institutions rely on</h1>
+            <p class="about-reference-lede">Technovation Ventures is a Nairobi software engineering and ICT consulting company. Our systems process medicines registrations for national regulators, verify trade documents across EAC borders, route export complaints for South Africa's trade ministry, and run loyalty and payments for one of Nairobi's leading malls.</p>
+          </div>
+        </div>
+      </section>
+      <section class="about-reference-strengths" aria-label="What we are built for">
+        <div class="about-reference-wrap about-reference-strength-grid">
+          {strengths.map(([title, description], index) => <article class="about-reveal" style={{ "--reveal-delay": `${index * 90}ms` }} key={title}>
+            <span>0{index + 1}</span>
+            <h2>{title}</h2>
+            <p>{description}</p>
+          </article>)}
+        </div>
+      </section>
     </main>
   </div>
 }, { name: "AboutPage" })
