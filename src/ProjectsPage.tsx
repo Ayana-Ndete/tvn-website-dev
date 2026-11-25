@@ -4,6 +4,7 @@ import { useRoute } from "#imports"
 import { useClientEffect } from "./useClientEffect"
 import { NuxtLink } from "#components"
 import { projects, publicProjectStatistics, type Project } from "./projectData"
+import "./work-project-tags.css"
 
 const priorityProjectIds = ["sarit-belong", "dtic-ntb", "technovation-ticketing", "zfda-irmis", "chanuka"]
 const featuredProjects = priorityProjectIds.map((id) => projects.find((project) => project.id === id)).filter((project): project is Project => Boolean(project))
@@ -84,7 +85,7 @@ export default defineComponent((props) => {
     <main>
       {!props.embedded && <section class="work-hero" aria-labelledby="projects-title"><div class="work-hero-grid" aria-hidden="true" /><div class="work-hero-glow" aria-hidden="true" /><div class="px-wrap work-hero-layout"><div class="work-hero-inner"><p class="work-eyebrow">Our work / deployed systems</p><h1 id="projects-title"><AnimatedLetters text="Technology " className="is-white" /><AnimatedLetters text="that" className="is-deep-blue" /><br /><AnimatedLetters text="works" className="is-white" /><br /><AnimatedLetters text="where it matters." className="is-deep-blue" /></h1><p class="work-hero-summary">Built for Africa.</p><a class="hero-scroll-link" href="#featured-work" onClick={scrollToFeaturedWork}><span>Explore work</span><b aria-hidden="true">↓</b></a></div></div></section>}
       <section id="featured-work" class="work-collection" aria-label="Selected case studies"><div class="work-case-list">{featuredProjects.map((project, index) => renderProject(project, index))}</div></section>
-      <section class="work-more" aria-labelledby="more-work-title"><div class="px-wrap"><header class="work-heading work-reveal"><div><p class="work-eyebrow">More projects</p><h2 id="more-work-title">A decade of digital<br /><span>systems across Africa.</span></h2></div></header><div class="work-mini-grid">{otherProjects.map((project, index) => <article class="work-reveal" style={{ "--reveal-delay": `${index * 75}ms` }} key={project.id}>{project.year && <p>{project.year}</p>}<h3>{project.title}</h3>{project.description && <small>{project.description}</small>}</article>)}</div></div></section>
+      <section class="work-more" aria-labelledby="more-work-title"><div class="px-wrap"><header class="work-heading work-reveal"><div><p class="work-eyebrow">More projects</p><h2 id="more-work-title">A decade of digital<br /><span>systems across Africa.</span></h2></div></header><div class="work-mini-grid">{otherProjects.map((project, index) => <article class="work-reveal" style={{ "--reveal-delay": `${index * 75}ms` }} key={project.id}>{project.year && <p>{project.year}</p>}<h3>{project.title}</h3>{project.description && <small>{project.description}</small>}{project.tags && <div class="work-mini-tags">{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>}</article>)}</div></div></section>
       {!props.embedded && <section class="work-cta"><div class="px-wrap"><p class="work-eyebrow">Your next system</p><h2>Have a complex process<br />worth <span>making simpler?</span></h2><NuxtLink to="/contact">Talk to our team <b>→</b></NuxtLink></div></section>}
     </main>
   </div>

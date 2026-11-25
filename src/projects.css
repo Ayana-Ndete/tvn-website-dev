@@ -97,6 +97,7 @@
 .work-case-visual{grid-column:span 7;height:auto;min-width:0;aspect-ratio:16/10;padding:8px;border:1px solid #cbd5e1;border-radius:12px;background:#eaf1fa;box-shadow:0 20px 50px rgba(7,20,48,.12)}
 .work-case-reverse .work-case-visual{grid-column:6 / span 7;grid-row:1}
 .work-case-visual::after{inset:8px;border-radius:7px;background:linear-gradient(180deg,rgba(7,20,48,.05),rgba(7,20,48,.24));pointer-events:none}
+.work-experience .work-case-visual::after{display:none}.work-experience .work-case-status{padding:6px 9px;border-radius:4px;background:#071430a8;backdrop-filter:blur(6px)}
 .work-case:nth-child(even) .work-case-visual{border-color:#1e3a7a;background:#0b1d44;box-shadow:0 22px 54px rgba(0,0,0,.28)}
 .work-case-visual img{border-radius:7px}
 .work-case-index{top:22px;left:22px;display:grid;place-items:center;width:34px;height:34px;border:1px solid rgba(255,255,255,.52);border-radius:5px;background:rgba(7,20,48,.55);backdrop-filter:blur(8px)}

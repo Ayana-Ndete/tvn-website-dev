@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const route = useRoute()
-await navigateTo({ path: '/about', hash: route.hash || '#history' }, { replace: true })
+await navigateTo({ path: '/journey', hash: route.hash || undefined }, { replace: true })
 </script>
 
 <template><div /></template>
